@@ -1,8 +1,14 @@
+import { IoSearch } from 'react-icons/io5';
+
 export default function Assignments() {
   return (
     <div id="wd-assignments">
-      <input placeholder="Search for Assignments" id="wd-search-assignment" />
-      &nbsp;
+      <div className="input-group mb-3" style={{width: '25%'}}>
+        <span className="input-group-text" id="basic-addon1">
+          <IoSearch />
+        </span>
+        <input type="text" className="form-control" placeholder="Search..." />
+      </div>
       <button id="wd-add-assignment-group">+ Group</button>&nbsp;
       <button id="wd-add-assignment">+ Assignment</button>
       <h3 id="wd-assignments-title">
