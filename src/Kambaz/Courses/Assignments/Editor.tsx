@@ -1,6 +1,69 @@
+import { Col, Row } from 'react-bootstrap';
+
 export default function AssignmentEditor() {
   return (
-    <div id="wd-assignments-editor">
+    <div className="ms-4" id="wd-assignments-editor">
+      <Row>
+        <label htmlFor="wd-name">Assignment Name</label>
+      </Row>
+      <Row>
+        <input className="form-control" type="text" id="wd-name" value="A1" />
+      </Row>
+      <Row className="mt-3">
+        <textarea className="form-control" id="wd-name" rows={6}>
+          The assignment is available online. Submit a link to the landing page
+          of your Web application running on Netlify of
+        </textarea>
+      </Row>
+      <Row className="mt-3">
+        <Col xs={3}>
+          <label className="float-end" htmlFor="wd-points">
+            Points
+          </label>
+        </Col>
+        <Col>
+          <input
+            className="form-control"
+            type="number"
+            id="wd-points"
+            value={100}
+          />
+        </Col>
+      </Row>
+      <Row className="mt-3">
+        <Col xs={3}>
+          <label className="float-end" htmlFor="wd-group">
+            Assignment Group
+          </label>
+        </Col>
+        <Col>
+          <select className="form-select" id="wd-group">
+            <option selected value="ASSIGNMENTS">
+              ASSIGNMENTS
+            </option>
+            <option value="QUIZZES">QUIZZES</option>
+            <option value="EXAMS">EXAMS</option>
+            <option value="PROJECT">PROJECT</option>
+          </select>
+        </Col>
+      </Row>
+      <Row className="mt-3">
+        <Col xs={3}>
+          <label className="float-end" htmlFor="wd-display-grade-as">
+            Assignment Group
+          </label>
+        </Col>
+        <Col>
+            <select className="form-select" id="wd-display-grade-as">
+              <option selected value="PERCENTAGE">
+                PERCENTAGE
+              </option>
+              <option value="POINTS">POINTS</option>
+              <option value="LETTER">LETTER GRADE</option>
+            </select>
+        </Col>
+      </Row>
+
       <label htmlFor="wd-name">
         <h3>Assignment Name</h3>
       </label>

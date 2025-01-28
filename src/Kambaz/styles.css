@@ -27,6 +27,9 @@ body * {
 .wd-lesson {
   border-left: 3px solid green !important;
 }
+.wd-assignment {
+  border-left: 3px solid green !important;
+}
 
 .list-group.wd > .list-group-item.active {
   color: black;
