@@ -10,7 +10,7 @@ export default function Signup() {
         placeholder="password"
         id="wd-password"
       />
-      <Link to="/Kambaz/Account/Profile" id="wd-signup-link">
+      <Link to="/Kambaz/Dashboard" id="wd-signup-link">
         <Button
           className="mt-2"
           style={{ width: '100%' }}

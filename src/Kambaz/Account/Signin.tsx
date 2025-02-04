@@ -10,7 +10,7 @@ export default function Signin() {
         placeholder="password"
         id="wd-password"
       />
-      <Link to="/Kambaz/Account/Profile" id="wd-signin-link">
+      <Link to="/Kambaz/Dashboard" id="wd-signin-link">
         <Button
           className="mt-2"
           style={{ width: '100%' }}
