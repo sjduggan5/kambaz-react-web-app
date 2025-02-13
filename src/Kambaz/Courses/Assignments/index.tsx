@@ -5,8 +5,12 @@ import { IoSearch } from 'react-icons/io5';
 import AssignmentsControlButtons from './AssignmentsControlButtons';
 import AssignmentButtons from './AssignmentButtons';
 import { MdOutlineAssignment } from 'react-icons/md';
+import { useParams } from 'react-router-dom';
+import * as db from '../../Database';
 
 export default function Assignments() {
+  const { cid } = useParams();
+  const assignments = db.assignments;
   return (
     <div>
       <div className="d-flex flex-row">
@@ -53,60 +57,27 @@ export default function Assignments() {
           </div>
 
           <ListGroup className="rounded-0">
-            <a
-              href="#/Kambaz/Courses/1234/Assignments/123"
-              style={{ textDecoration: 'none' }}
-            >
-              <ListGroup.Item className="wd-assignment p-3 ps-1 d-flex flex-row align-items-center">
-                <BsGripVertical className="me-2 fs-3" />
-                <MdOutlineAssignment color="green" className="fs-3 me-3" />
-                <div className="d-flex flex-column">
-                  <strong>A1</strong>
-                  <div className="fs-6">
-                    <strong className="text-danger">Multiple Modules</strong> |{' '}
-                    <strong>Not available until</strong> May 6 at 12:00 am |{' '}
-                    <strong>Due</strong> May 13 at 11:59pm | 100 pts
+            {assignments.filter(assignment => cid === assignment.course).map((assignment) => (
+              <a
+                href={`#/Kambaz/Courses/${cid}/Assignments/${assignment._id}`}
+                style={{ textDecoration: 'none' }}
+              >
+                <ListGroup.Item className="wd-assignment p-3 ps-1 d-flex flex-row align-items-center">
+                  <BsGripVertical className="me-2 fs-3" />
+                  <MdOutlineAssignment color="green" className="fs-3 me-3" />
+                  <div className="d-flex flex-column">
+                    <strong>{assignment.title}</strong>
+                    <div className="fs-6">
+                      <strong className="text-danger">Multiple Modules</strong>{' '}
+                      | <strong>Not available until</strong>{' '}
+                      {assignment.available_at} | <strong>Due</strong>{' '}
+                      {assignment.due_date} | {assignment.points} pts
+                    </div>
                   </div>
-                </div>
-                <AssignmentButtons />
-              </ListGroup.Item>
-            </a>
-            <a
-              href="#/Kambaz/Courses/1234/Assignments/123"
-              style={{ textDecoration: 'none' }}
-            >
-              <ListGroup.Item className="wd-assignment p-3 ps-1 d-flex flex-row align-items-center">
-                <BsGripVertical className="me-2 fs-3" />
-                <MdOutlineAssignment color="green" className="fs-3 me-3" />
-                <div className="d-flex flex-column">
-                  <strong>A2</strong>
-                  <div className="fs-6">
-                    <strong className="text-danger">Multiple Modules</strong> |{' '}
-                    <strong>Not available until</strong> May 13 at 12:00 am |{' '}
-                    <strong>Due</strong> May 20 at 11:59pm | 100 pts
-                  </div>
-                </div>
-                <AssignmentButtons />
-              </ListGroup.Item>
-            </a>
-            <a
-              href="#/Kambaz/Courses/1234/Assignments/123"
-              style={{ textDecoration: 'none' }}
-            >
-              <ListGroup.Item className="wd-assignment p-3 ps-1 d-flex flex-row align-items-center">
-                <BsGripVertical className="me-2 fs-3" />
-                <MdOutlineAssignment color="green" className="fs-3 me-3" />
-                <div className="d-flex flex-column">
-                  <strong>A3</strong>
-                  <div className="fs-6">
-                    <strong className="text-danger">Multiple Modules</strong> |{' '}
-                    <strong>Not available until</strong> May 20 at 12:00 am |{' '}
-                    <strong>Due</strong> May 1273 at 11:59pm | 100 pts
-                  </div>
-                </div>
-                <AssignmentButtons />
-              </ListGroup.Item>
-            </a>
+                  <AssignmentButtons />
+                </ListGroup.Item>
+              </a>
+            ))}
           </ListGroup>
         </ListGroup.Item>
       </ListGroup>
