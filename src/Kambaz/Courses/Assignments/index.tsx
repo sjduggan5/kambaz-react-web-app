@@ -57,27 +57,31 @@ export default function Assignments() {
           </div>
 
           <ListGroup className="rounded-0">
-            {assignments.filter(assignment => cid === assignment.course).map((assignment) => (
-              <a
-                href={`#/Kambaz/Courses/${cid}/Assignments/${assignment._id}`}
-                style={{ textDecoration: 'none' }}
-              >
-                <ListGroup.Item className="wd-assignment p-3 ps-1 d-flex flex-row align-items-center">
-                  <BsGripVertical className="me-2 fs-3" />
-                  <MdOutlineAssignment color="green" className="fs-3 me-3" />
-                  <div className="d-flex flex-column">
-                    <strong>{assignment.title}</strong>
-                    <div className="fs-6">
-                      <strong className="text-danger">Multiple Modules</strong>{' '}
-                      | <strong>Not available until</strong>{' '}
-                      {assignment.available_at} | <strong>Due</strong>{' '}
-                      {assignment.due_date} | {assignment.points} pts
+            {assignments
+              .filter((assignment) => cid === assignment.course)
+              .map((assignment) => (
+                <a
+                  href={`#/Kambaz/Courses/${cid}/Assignments/${assignment._id}`}
+                  style={{ textDecoration: 'none' }}
+                >
+                  <ListGroup.Item className="wd-assignment p-3 ps-1 d-flex flex-row align-items-center">
+                    <BsGripVertical className="me-2 fs-3" />
+                    <MdOutlineAssignment color="green" className="fs-3 me-3" />
+                    <div className="d-flex flex-column">
+                      <strong>{assignment.title}</strong>
+                      <div className="fs-6">
+                        <strong className="text-danger">
+                          Multiple Modules
+                        </strong>{' '}
+                        | <strong>Not available until</strong>{' '}
+                        {assignment.available_at} | <strong>Due</strong>{' '}
+                        {assignment.due_date} | {assignment.points} pts
+                      </div>
                     </div>
-                  </div>
-                  <AssignmentButtons />
-                </ListGroup.Item>
-              </a>
-            ))}
+                    <AssignmentButtons />
+                  </ListGroup.Item>
+                </a>
+              ))}
           </ListGroup>
         </ListGroup.Item>
       </ListGroup>
