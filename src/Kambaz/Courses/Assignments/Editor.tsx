@@ -1,13 +1,24 @@
 import { Button, Col, Row } from 'react-bootstrap';
+import * as db from '../../Database';
+import { useParams } from 'react-router';
 
 export default function AssignmentEditor() {
+  const { cid, aid } = useParams();
+  const assignment = db.assignments.find(
+    (assignment) => aid === assignment._id
+  );
   return (
     <div className="ms-4" id="wd-assignments-editor">
       <Row>
         <label htmlFor="wd-name">Assignment Name</label>
       </Row>
       <Row>
-        <input className="form-control" type="text" id="wd-name" value="A1" />
+        <input
+          className="form-control"
+          type="text"
+          id="wd-name"
+          value={assignment?.title || 'New Assignment'}
+        />
       </Row>
       <Row className="mt-3">
         <textarea className="form-control" id="wd-name" rows={6}>
@@ -191,10 +202,20 @@ export default function AssignmentEditor() {
       </Row>
       <hr />
       <div className="d-flex flex-row justify-content-end">
-        <Button variant="secondary" className="ms-2 mb-3" id="wd-add-group-btn">
+        <Button
+          href={`#/Kambaz/Courses/${cid}/Assignments`}
+          variant="secondary"
+          className="ms-2 mb-3"
+          id="wd-add-group-btn"
+        >
           Cancel
         </Button>
-        <Button variant="danger" className="ms-2 mb-3" id="wd-add-group-btn">
+        <Button
+          href={`#/Kambaz/Courses/${cid}/Assignments`}
+          variant="danger"
+          className="ms-2 mb-3"
+          id="wd-add-group-btn"
+        >
           Save
         </Button>
       </div>
