@@ -12,7 +12,7 @@ const accountSlice = createSlice({
     setCurrentUser: (state, action) => {
       state.currentUser = action.payload;
       if (action.payload) {
-        state.enrollments = state.enrollments.filter(
+        state.enrollments = enrollments.filter(
           (e) => e.user === action.payload?._id
         );
       }

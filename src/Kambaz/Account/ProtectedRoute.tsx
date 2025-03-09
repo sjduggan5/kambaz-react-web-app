@@ -6,7 +6,7 @@ export default function ProtectedRoute({ children }: { children: any }) {
   );
   const { cid } = useParams();
   if (currentUser) {
-    if (cid && !enrollments.some((e) => e.course === cid)) {
+    if (cid && !enrollments.some((e: any) => e.course === cid)) {
       return <Navigate to="/Kambaz/Dashboard" />;
     }
     return children;

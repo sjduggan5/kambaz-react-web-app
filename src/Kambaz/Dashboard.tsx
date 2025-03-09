@@ -20,9 +20,8 @@ export default function Dashboard({
   updateCourse: () => void;
 }) {
   function isEnrolled(courseId: string) {
-    return enrollments.some((e) => e.course === courseId);
+    return enrollments.some((e: any) => e.course === courseId);
   }
-
   const dispatch = useDispatch();
   const { currentUser, enrollments } = useSelector(
     (state: any) => state.accountReducer
@@ -59,7 +58,6 @@ export default function Dashboard({
           />
           <FormControl
             value={course.description}
-            rows={3}
             onChange={(e) =>
               setCourse({ ...course, description: e.target.value })
             }
@@ -89,12 +87,12 @@ export default function Dashboard({
               (course) =>
                 viewAllCourses ||
                 enrollments.some(
-                  (enrollment) =>
+                  (enrollment: any) =>
                     enrollment.user === currentUser._id &&
                     enrollment.course === course._id
                 )
             )
-            .map((course) => (
+            .map((course: any) => (
               <Col className="wd-dashboard-course" style={{ width: '300px' }}>
                 <Card>
                   <Link

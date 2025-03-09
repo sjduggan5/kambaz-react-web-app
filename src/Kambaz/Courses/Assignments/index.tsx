@@ -7,7 +7,6 @@ import AssignmentButtons from './AssignmentButtons';
 import { MdOutlineAssignment } from 'react-icons/md';
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { deleteAssignment } from './reducer';
 
 export default function Assignments() {
   const { cid } = useParams();
@@ -63,8 +62,8 @@ export default function Assignments() {
 
           <ListGroup className="rounded-0">
             {assignments
-              .filter((assignment) => cid === assignment.course)
-              .map((assignment) => (
+              .filter((assignment: any) => cid === assignment.course)
+              .map((assignment: any) => (
                 <div className="d-flex flex-row justify-content-between wd-assignment border">
                   <a
                     href={`#/Kambaz/Courses/${cid}/Assignments/${assignment._id}`}

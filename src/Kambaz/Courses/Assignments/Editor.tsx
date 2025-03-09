@@ -22,7 +22,7 @@ export default function AssignmentEditor() {
     const [year, month, day] = dateStr.split('-').map(Number);
     const date = new Date(year, month - 1, day); // Month is 0-indexed in JS Date
     const options = { month: 'long', day: 'numeric' };
-    const formattedDate = date.toLocaleDateString('en-US', options);
+    const formattedDate = date.toLocaleDateString('en-US', options as any);
 
     return `${formattedDate} at 12:00 am`;
   }
@@ -31,7 +31,7 @@ export default function AssignmentEditor() {
   const { cid, aid } = useParams();
   const { assignments } = useSelector((state: any) => state.assignmentsReducer);
   const [assignment, setAssignment] = useState<any>(
-    assignments.find((assignment) => aid === assignment._id) || {
+    assignments.find((assignment: any) => aid === assignment._id) || {
       course: cid,
     }
   );
