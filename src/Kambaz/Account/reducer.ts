@@ -18,11 +18,13 @@ const accountSlice = createSlice({
       }
     },
     enrollUser: (state, { payload: courseId }) => {
-      state.enrollments.push({
-        _id: uuidv4(),
-        user: state.currentUser?._id,
-        course: courseId,
-      });
+      if (state.currentUser !== null) {
+        state.enrollments.push({
+          _id: uuidv4(),
+          user: state.currentUser['_id'],
+          course: courseId,
+        });
+      }
     },
     unenrollUser: (state, { payload: courseId }) => {
       state.enrollments = state.enrollments.filter(
