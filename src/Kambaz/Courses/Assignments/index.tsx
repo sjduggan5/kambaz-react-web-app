@@ -6,11 +6,12 @@ import AssignmentsControlButtons from './AssignmentsControlButtons';
 import AssignmentButtons from './AssignmentButtons';
 import { MdOutlineAssignment } from 'react-icons/md';
 import { useParams } from 'react-router-dom';
-import * as db from '../../Database';
+import { useSelector } from 'react-redux';
 
 export default function Assignments() {
   const { cid } = useParams();
-  const assignments = db.assignments;
+  const { currentUser } = useSelector((state: any) => state.accountReducer);
+  const { assignments } = useSelector((state: any) => state.assignmentsReducer);
   return (
     <div>
       <div className="d-flex flex-row">
@@ -20,32 +21,35 @@ export default function Assignments() {
           </span>
           <input type="text" className="form-control" placeholder="Search..." />
         </div>
-        <div className="ms-auto d-flex">
-          <Button
-            variant="secondary"
-            size="lg"
-            className="ms-2 mb-3"
-            id="wd-add-group-btn"
-          >
-            <FaPlus
-              className="position-relative me-2"
-              style={{ bottom: '1px' }}
-            />
-            Group
-          </Button>
-          <Button
-            variant="danger"
-            size="lg"
-            className="ms-2 mb-3"
-            id="wd-add-assignment-btn"
-          >
-            <FaPlus
-              className="position-relative me-2"
-              style={{ bottom: '1px' }}
-            />
-            Assignment
-          </Button>
-        </div>
+        {currentUser.role === 'FACULTY' && (
+          <div className="ms-auto d-flex">
+            <Button
+              variant="secondary"
+              size="lg"
+              className="ms-2 mb-3"
+              id="wd-add-group-btn"
+            >
+              <FaPlus
+                className="position-relative me-2"
+                style={{ bottom: '1px' }}
+              />
+              Group
+            </Button>
+            <Button
+              variant="danger"
+              size="lg"
+              className="ms-2 mb-3"
+              id="wd-add-assignment-btn"
+              href="#/Kambaz/Courses/RS101/Assignments/new"
+            >
+              <FaPlus
+                className="position-relative me-2"
+                style={{ bottom: '1px' }}
+              />
+              Assignment
+            </Button>
+          </div>
+        )}
       </div>
 
       <ListGroup className="rounded-0" id="wd-assignments">
@@ -58,29 +62,37 @@ export default function Assignments() {
 
           <ListGroup className="rounded-0">
             {assignments
-              .filter((assignment) => cid === assignment.course)
-              .map((assignment) => (
-                <a
-                  href={`#/Kambaz/Courses/${cid}/Assignments/${assignment._id}`}
-                  style={{ textDecoration: 'none' }}
-                >
-                  <ListGroup.Item className="wd-assignment p-3 ps-1 d-flex flex-row align-items-center">
-                    <BsGripVertical className="me-2 fs-3" />
-                    <MdOutlineAssignment color="green" className="fs-3 me-3" />
-                    <div className="d-flex flex-column">
-                      <strong>{assignment.title}</strong>
-                      <div className="fs-6">
-                        <strong className="text-danger">
-                          Multiple Modules
-                        </strong>{' '}
-                        | <strong>Not available until</strong>{' '}
-                        {assignment.available_at} | <strong>Due</strong>{' '}
-                        {assignment.due_date} | {assignment.points} pts
+              .filter((assignment: any) => cid === assignment.course)
+              .map((assignment: any) => (
+                <div className="d-flex flex-row justify-content-between wd-assignment border">
+                  <a
+                    href={`#/Kambaz/Courses/${cid}/Assignments/${assignment._id}`}
+                    style={{ textDecoration: 'none' }}
+                    className="flex-grow-1 w-100"
+                  >
+                    <ListGroup.Item className="border-0 p-3 ps-1 d-flex flex-row align-items-center flex-grow-1">
+                      <BsGripVertical className="me-2 fs-3" />
+                      <MdOutlineAssignment
+                        color="green"
+                        className="fs-3 me-3"
+                      />
+                      <div className="d-flex flex-column">
+                        <strong>{assignment.title}</strong>
+                        <div className="fs-6">
+                          <strong className="text-danger">
+                            Multiple Modules
+                          </strong>{' '}
+                          | <strong>Not available until</strong>{' '}
+                          {assignment.available_at} | <strong>Due</strong>{' '}
+                          {assignment.due_date} | {assignment.points} pts
+                        </div>
                       </div>
-                    </div>
-                    <AssignmentButtons />
-                  </ListGroup.Item>
-                </a>
+                    </ListGroup.Item>
+                  </a>
+                  <div className="d-flex col-auto align-items-center">
+                    <AssignmentButtons assignmentId={assignment._id} />
+                  </div>
+                </div>
               ))}
           </ListGroup>
         </ListGroup.Item>
