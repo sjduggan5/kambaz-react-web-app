@@ -4,6 +4,7 @@ import './styles.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import { enrollUser, unenrollUser } from './Account/reducer';
+import * as client from './Account/client';
 export default function Dashboard({
   courses,
   course,
@@ -27,6 +28,17 @@ export default function Dashboard({
     (state: any) => state.accountReducer
   );
   const [viewAllCourses, setViewAllCourses] = useState<boolean>(false);
+
+  const enroll = async (courseId: string) => {
+    await client.enrollUser(currentUser._id, courseId);
+    dispatch(enrollUser(courseId))
+  }
+
+  const unenroll = async (courseId: string) => {
+    await client.unenrollUser(currentUser._id, courseId);
+    dispatch(unenrollUser(courseId))
+  }
+
   return (
     <div id="wd-dashboard">
       <h1 id="wd-dashboard-title">Dashboard</h1> <hr />
@@ -145,12 +157,12 @@ export default function Dashboard({
 
                       {currentUser.role === 'STUDENT' && (
                         <button
-                          onClick={(event) => {
+                          onClick={async (event) => {
                             event.preventDefault();
                             if (isEnrolled(course._id)) {
-                              dispatch(unenrollUser(course._id));
+                              await unenroll(course._id);
                             } else {
-                              dispatch(enrollUser(course._id));
+                              await enroll(course._id);
                             }
                           }}
                           className={`btn float-end me-2 ${isEnrolled(course._id) ? 'btn-warning' : 'btn-success'}`}
