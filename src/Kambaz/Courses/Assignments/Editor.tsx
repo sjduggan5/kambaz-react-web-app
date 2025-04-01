@@ -3,6 +3,7 @@ import { useParams } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { addAssignment, updateAssignment } from './reducer';
 import { useState } from 'react';
+import * as client from './client';
 
 export default function AssignmentEditor() {
   // This function is from a StackOverflow article to format a date from readable format to YYYY-MM-DD
@@ -35,6 +36,16 @@ export default function AssignmentEditor() {
       course: cid,
     }
   );
+
+  const createNewAssignment = async () => {
+    await client.createAssignmentForCourse(cid as string, assignment);
+    dispatch(addAssignment(assignment));
+  };
+
+  const updateExistingAssignment = async () => {
+    await client.updateAssignment(assignment);
+    dispatch(updateAssignment(assignment));
+  };
 
   const isNewAssignment: boolean = aid === 'new';
 
@@ -279,11 +290,7 @@ export default function AssignmentEditor() {
         </Button>
         <Button
           onClick={() =>
-            dispatch(
-              isNewAssignment
-                ? addAssignment(assignment)
-                : updateAssignment(assignment)
-            )
+            isNewAssignment ? createNewAssignment() : updateExistingAssignment()
           }
           href={`#/Kambaz/Courses/${cid}/Assignments`}
           variant="danger"
