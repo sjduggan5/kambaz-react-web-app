@@ -49,16 +49,20 @@ export const signout = async () => {
 };
 
 export const fetchEnrollments = async () => {
-    const response = await axiosWithCredentials.get(`${ENROLLMENTS_API}`)
-    return response.data;
-}
+  const response = await axiosWithCredentials.get(`${ENROLLMENTS_API}`);
+  return response.data;
+};
 
 export const enrollUser = async (userId: string, courseId: string) => {
-    const response = await axiosWithCredentials.post(`${ENROLLMENTS_API}/${userId}/${courseId}`)
-    return response.data;
-}
+  const response = await axiosWithCredentials.post(
+    `${ENROLLMENTS_API}/${userId}/${courseId}`
+  );
+  return response.data;
+};
 
 export const unenrollUser = async (userId: string, courseId: string) => {
-    const response = await axiosWithCredentials.delete(`${ENROLLMENTS_API}/${userId}/${courseId}`)
-    return response.data;
-}
+  const response = await axiosWithCredentials.delete(
+    `${ENROLLMENTS_API}/${userId}/${courseId}`
+  );
+  return response.data;
+};

@@ -8,7 +8,9 @@ export const fetchAllAssignments = async () => {
   return data;
 };
 export const deleteAssignment = async (id: string) => {
-  const { data } = await axiosWithCredentials.delete(`${ASSIGNMENTS_API}/${id}`);
+  const { data } = await axiosWithCredentials.delete(
+    `${ASSIGNMENTS_API}/${id}`
+  );
   return data;
 };
 export const updateAssignment = async (assignment: any) => {
@@ -20,7 +22,9 @@ export const updateAssignment = async (assignment: any) => {
 };
 
 export const findAssignmentsForCourse = async (courseId: string) => {
-  const response = await axiosWithCredentials.get(`${COURSES_API}/${courseId}/assignments`);
+  const response = await axiosWithCredentials.get(
+    `${COURSES_API}/${courseId}/assignments`
+  );
   return response.data;
 };
 

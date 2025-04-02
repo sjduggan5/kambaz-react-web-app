@@ -31,13 +31,13 @@ export default function Dashboard({
 
   const enroll = async (courseId: string) => {
     await client.enrollUser(currentUser._id, courseId);
-    dispatch(enrollUser(courseId))
-  }
+    dispatch(enrollUser(courseId));
+  };
 
   const unenroll = async (courseId: string) => {
     await client.unenrollUser(currentUser._id, courseId);
-    dispatch(unenrollUser(courseId))
-  }
+    dispatch(unenrollUser(courseId));
+  };
 
   return (
     <div id="wd-dashboard">
