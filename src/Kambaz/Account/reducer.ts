@@ -25,7 +25,7 @@ const accountSlice = createSlice({
           _id: uuidv4(),
           user: state.currentUser['_id'],
           course: courseId,
-        }
+        };
         state.enrollments = [...state.enrollments, newEnrollment] as any;
       }
     },
