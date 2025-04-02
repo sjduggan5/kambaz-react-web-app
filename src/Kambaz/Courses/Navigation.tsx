@@ -5,7 +5,7 @@ export default function CourseNavigation() {
   const links = [
     'Home',
     'Modules',
-    'Piazza',
+    'Pazza',
     'Zoom',
     'Assignments',
     'Quizzes',
