@@ -2,7 +2,6 @@ import { Button, Card, Col, FormControl, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import './styles.css';
 import { useSelector } from 'react-redux';
-import { useState } from 'react';
 export default function Dashboard({
   courses,
   course,
