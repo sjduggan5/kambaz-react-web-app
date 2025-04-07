@@ -21,8 +21,8 @@ export default function Users() {
     setUsers([...users, user]);
   };
 
-  const filterUsersByName = async (name: string) => {
-    setName(name);
+  const filterUsersByName = async (typedName: string) => {
+    setName(typedName);
     if (name) {
       const users = await client.findUsersByPartialName(name);
       setUsers(users);
