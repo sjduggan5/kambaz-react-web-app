@@ -8,6 +8,7 @@ import { FaAlignJustify } from 'react-icons/fa';
 import PeopleTable from './People/Table';
 import * as client from './client';
 import { useEffect, useState } from 'react';
+import Pazza from './Pazza';
 
 export default function Courses({ courses }: { courses: any[] }) {
   const { cid } = useParams();
@@ -39,6 +40,7 @@ export default function Courses({ courses }: { courses: any[] }) {
             <Route path="Assignments" element={<Assignments />} />
             <Route path="Assignments/:aid" element={<AssignmentEditor />} />
             <Route path="People" element={<PeopleTable users={users} />} />
+            <Route path="Pazza*" element={<Pazza />} />
           </Routes>
         </div>
       </div>
