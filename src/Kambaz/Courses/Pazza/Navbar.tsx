@@ -1,4 +1,4 @@
-import { Container, Nav } from 'react-bootstrap';
+import { Nav } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 
