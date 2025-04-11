@@ -7,7 +7,6 @@ export default function Session({ children }: { children: any }) {
   const dispatch = useDispatch();
   const fetchProfile = async () => {
     try {
-      console.log('HERE');
       const currentUser = await client.profile();
       dispatch(setCurrentUser(currentUser));
     } catch (err: any) {
