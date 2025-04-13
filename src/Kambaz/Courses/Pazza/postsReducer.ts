@@ -19,13 +19,14 @@ const postsSlice = createSlice({
         views: 1,
         createDate: new Date(),
         course: post.course,
-        folder: post.folder,
+        folders: post.folders,
         title: post.title,
         content: post.content,
         visibility: post.visibility,
         visibleToUserIds: post.visibleToUserIds || [],
         status: post.status,
         postType: post.postType,
+        isPinned: post.isPinned,
       };
       state.posts = [...state.posts, newPost] as any;
     },
