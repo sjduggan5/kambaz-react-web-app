@@ -1,3 +1,4 @@
+import './Pazza.css';
 import { Routes, Route, Navigate, useParams } from 'react-router';
 import Navbar from './Navbar';
 import Sidebar from './Sidebar';
@@ -7,6 +8,8 @@ import * as client from './client';
 import { setPosts } from './postsReducer';
 import { setFolders } from './foldersReducer';
 import { useDispatch } from 'react-redux';
+import Glance from './Glance';
+
 export default function Pazza() {
   const { cid } = useParams();
   const dispatch = useDispatch();
@@ -20,17 +23,16 @@ export default function Pazza() {
     fetchPostsAndFolders();
   }, [cid]);
   return (
-    <div id="wd-courses">
+    <div id="pazza-app">
       <Navbar />
-      <hr />
-      <div className="d-flex">
-        <div className="d-none d-md-block">
+      <div className="pazza-main-content">
+        <div className="sidebar-container">
           <Sidebar />
         </div>
-        <div className="flex-fill">
+        <div className="content-container">
           <Routes>
             <Route path="Posts/:postId" element={<PostViewer />} />
-            <Route path="Glance" element={<></>} />
+            <Route path="Glance" element={<Glance />} />
             <Route path="/" element={<Navigate to={`Glance`} />} />
           </Routes>
         </div>
