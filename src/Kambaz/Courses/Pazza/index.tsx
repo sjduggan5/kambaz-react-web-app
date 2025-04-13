@@ -1,12 +1,27 @@
-import { Routes, Route, Navigate } from 'react-router-dom';
+import './Pazza.css';
+import { Routes, Route, Navigate, useParams } from 'react-router';
 import Navbar from './Navbar';
 import Sidebar from './Sidebar';
 import PostViewer from './PostViewer';
-import './Pazza.css';
-import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import * as client from './client';
+import { setPosts } from './postsReducer';
+import { setFolders } from './foldersReducer';
+import { useDispatch } from 'react-redux';
+import Glance from './Glance';
 
 export default function Pazza() {
-
+  const { cid } = useParams();
+  const dispatch = useDispatch();
+  const fetchPostsAndFolders = async () => {
+    const coursePosts = await client.fetchAllPostsForCourse(cid || '');
+    const courseFolders = await client.fetchFoldersForcourse(cid || '');
+    dispatch(setPosts(coursePosts));
+    dispatch(setFolders(courseFolders));
+  };
+  useEffect(() => {
+    fetchPostsAndFolders();
+  }, [cid]);
   return (
     <div id="pazza-app">
       <Navbar />
@@ -17,23 +32,11 @@ export default function Pazza() {
         <div className="content-container">
           <Routes>
             <Route path="Posts/:postId" element={<PostViewer />} />
-            <Route path="Glance" element={<PostsList />} />
+            <Route path="Glance" element={<Glance />} />
             <Route path="/" element={<Navigate to={`Glance`} />} />
           </Routes>
         </div>
       </div>
-    </div>
-  );
-}
-
-// Simple PostsList component to show posts in the main content area when not viewing a specific post
-function PostsList() {
-  const { currentUser } = useSelector((state: any) => state.accountReducer);
-  return (
-    <div className="posts-list">
-      <h2>Welcome back {currentUser.firstName}</h2>
-      <h3>Recent Posts</h3>
-      <p>Select a post from the sidebar to view its details</p>
     </div>
   );
 }
