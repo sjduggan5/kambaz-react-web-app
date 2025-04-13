@@ -1,6 +1,6 @@
 import { Nav } from 'react-bootstrap';
 import { useParams } from 'react-router';
-import "./Pazza.css"
+import './Pazza.css';
 
 export default function Navbar() {
   const { cid } = useParams();
