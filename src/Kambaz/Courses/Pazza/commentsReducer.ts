@@ -21,7 +21,7 @@ const commentsSlice = createSlice({
         commentType: comment.commentType,
         post: comment.post,
         parentComment: comment.parentComment,
-        resolved: false,
+        isResolved: false,
       };
       state.comments = [...state.comments, newComment] as any;
     },

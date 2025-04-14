@@ -3,5 +3,10 @@
     "_id": "1",
     "name": "project",
     "course": "RS101"
+  },
+  {
+    "_id": "2",
+    "name": "other",
+    "course": "RS101"
   }
 ]
