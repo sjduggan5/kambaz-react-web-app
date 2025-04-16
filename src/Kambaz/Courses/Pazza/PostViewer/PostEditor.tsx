@@ -214,7 +214,7 @@ export default function PostEditor({ editLocation }: { editLocation: string }) {
           className="m-0"
           data-bs-toggle="tooltip"
           title={
-            post.folders.length || !post.title || !html
+            editArea === 'POST' && (post.folders.length || !post.title || !html)
               ? getTooltip()
               : undefined
           }
@@ -222,7 +222,10 @@ export default function PostEditor({ editLocation }: { editLocation: string }) {
           <button
             className="btn btn-primary btn-sm mt-2 mb-2"
             onClick={handleSubmit}
-            disabled={post.folders.length || !post.title || !html}
+            disabled={
+              editArea === 'POST' &&
+              (post.folders.length || !post.title || !html)
+            }
           >
             Submit
           </button>

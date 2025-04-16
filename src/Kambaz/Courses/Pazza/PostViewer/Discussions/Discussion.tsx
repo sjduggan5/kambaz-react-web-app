@@ -59,7 +59,11 @@ export default function Discussion({ discussion }: { discussion: any }) {
         {isEditing?.includes('DISCUSSION-EDIT') ? (
           <PostEditor editLocation={`DISCUSSION-EDIT:${discussion._id}`} />
         ) : (
-          discussion.content
+          <div
+            dangerouslySetInnerHTML={{
+              __html: DOMPurify.sanitize(discussion?.content),
+            }}
+          />
         )}
       </div>
       {replies?.map((reply) => (

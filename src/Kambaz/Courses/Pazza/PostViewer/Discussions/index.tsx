@@ -22,7 +22,7 @@ export default function Discussions() {
       ))}
       <hr className="m-0" />
       <div className="p-2">
-        <PostEditor editLocation="DISCUSSION" />
+        <PostEditor editLocation="DISCUSSION-NEW" />
       </div>
     </div>
   );
