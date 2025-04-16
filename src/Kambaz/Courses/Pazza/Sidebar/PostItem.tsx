@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import DOMPurify from 'dompurify';
 
 const formatDate = (dateString: string) => {
   const date = new Date(dateString);
@@ -22,7 +23,12 @@ export default function PostItem({
         <span className="post-title">{post.title}</span>
         <span className="post-date">{formatDate(post.createDate)}</span>
       </div>
-      <div className="post-body">{post.content}</div>
+      <div
+        className="post-body"
+        dangerouslySetInnerHTML={{
+          __html: DOMPurify.sanitize(post?.content),
+        }}
+      />
     </Link>
   );
 }

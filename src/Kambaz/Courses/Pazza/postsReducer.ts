@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { v4 as uuidv4 } from 'uuid';
 const initialState = {
   posts: [],
+  isEditing: null,
 };
 const postsSlice = createSlice({
   name: 'posts',
@@ -43,8 +44,17 @@ const postsSlice = createSlice({
         m._id === postId ? { ...m, editing: true } : m
       ) as any;
     },
+    setIsEditing: (state, { payload: editLocation }) => {
+      state.isEditing = editLocation;
+    },
   },
 });
-export const { addPost, deletePost, updatePost, editPost, setPosts } =
-  postsSlice.actions;
+export const {
+  addPost,
+  deletePost,
+  updatePost,
+  editPost,
+  setPosts,
+  setIsEditing,
+} = postsSlice.actions;
 export default postsSlice.reducer;

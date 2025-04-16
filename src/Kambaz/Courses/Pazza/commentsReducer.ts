@@ -12,7 +12,7 @@ const commentsSlice = createSlice({
     },
     addComment: (state, { payload: comment }) => {
       const newComment: any = {
-        _id: uuidv4(),
+        _id: comment._id || uuidv4(),
         author: comment.author,
         authorName: comment.authorName,
         authorType: comment.authorType,

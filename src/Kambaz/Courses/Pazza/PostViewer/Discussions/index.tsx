@@ -1,5 +1,6 @@
 import { useSelector } from 'react-redux';
 import Discussion from './Discussion';
+import PostEditor from '../PostEditor';
 
 export default function Discussions() {
   const { comments } = useSelector((state: any) => state.commentsReducer);
@@ -20,13 +21,8 @@ export default function Discussions() {
         <Discussion discussion={discussion} />
       ))}
       <hr className="m-0" />
-      <div className='ps-2'>
-        <div className='fs-6'>
-          Start a new followup discussion
-        </div>
-        <div className='fs-6'>
-          TODO: Add WYSIWYG editor here (Compose a new followup discussion)
-        </div>
+      <div className="p-2">
+        <PostEditor editLocation="DISCUSSION-NEW" />
       </div>
     </div>
   );
