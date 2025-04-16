@@ -71,16 +71,18 @@ export default function PostEditor({ editLocation }: { editLocation: string }) {
   }
 
   const getTooltip = () => {
-    const failures = []
+    const failures = [];
     if (!post.title) {
-      failures.push('Summary')
-    } if (!html) {
-      failures.push('Post Body')
-    } if (post.folders.length === 0) {
-      failures.push('Folders (min. 1)')
+      failures.push('Summary');
     }
-    return `The following fields are required: ${failures.join(', ')}`
-  }
+    if (!html) {
+      failures.push('Post Body');
+    }
+    if (post.folders.length === 0) {
+      failures.push('Folders (min. 1)');
+    }
+    return `The following fields are required: ${failures.join(', ')}`;
+  };
 
   const handleSubmit = async () => {
     if (
@@ -125,8 +127,8 @@ export default function PostEditor({ editLocation }: { editLocation: string }) {
     } else {
       newComment.commentType = 'ANSWER';
       if (post.status === 'UNANSWERED') {
-        await client.updatePost({...post, status: 'ANSWERED'})
-        dispatch(updatePost({...post, status: 'ANSWERED'}))
+        await client.updatePost({ ...post, status: 'ANSWERED' });
+        dispatch(updatePost({ ...post, status: 'ANSWERED' }));
       }
     }
 
@@ -207,27 +209,30 @@ export default function PostEditor({ editLocation }: { editLocation: string }) {
           />
         </Form>
       )}
-      <div className='d-flex flex-row align-items-center'>
-      <div
-        className="m-0"
-        data-bs-toggle="tooltip"
-        title={(post.folders.length || !post.title || !html) ? getTooltip() : undefined}
-      >
-        <button
-          className="btn btn-primary btn-sm mt-2 mb-2"
-          onClick={handleSubmit}
-          disabled={post.folders.length || !post.title || !html}
+      <div className="d-flex flex-row align-items-center">
+        <div
+          className="m-0"
+          data-bs-toggle="tooltip"
+          title={
+            post.folders.length || !post.title || !html
+              ? getTooltip()
+              : undefined
+          }
         >
-          Submit
-        </button>
-      </div>
+          <button
+            className="btn btn-primary btn-sm mt-2 mb-2"
+            onClick={handleSubmit}
+            disabled={post.folders.length || !post.title || !html}
+          >
+            Submit
+          </button>
+        </div>
         <button
           className="btn btn-secondary btn-sm ms-2 mt-2 mb-2"
           onClick={() => dispatch(setIsEditing(null))}
         >
           Cancel
         </button>
-
       </div>
     </div>
   );

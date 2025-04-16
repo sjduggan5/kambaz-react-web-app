@@ -13,7 +13,11 @@ export default function PostBody({ post }: { post: any }) {
       ) : (
         <div>
           <div className="fs-2 fw-bold">{post?.title}</div>
-          <div dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(post?.content)}}/>
+          <div
+            dangerouslySetInnerHTML={{
+              __html: DOMPurify.sanitize(post?.content),
+            }}
+          />
           <div className="d-flex flex-row align-items-center mt-3">
             {folders
               .filter((f) => post?.folders.includes(f._id))

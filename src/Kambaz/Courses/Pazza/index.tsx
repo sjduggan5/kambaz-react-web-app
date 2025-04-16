@@ -16,7 +16,8 @@ export default function Pazza() {
   const dispatch = useDispatch();
   const fetchPostsAndFolders = async () => {
     const coursePosts = await client.fetchAllPostsForUserAndCourse(
-      currentUser._id || '', cid || ''
+      currentUser._id || '',
+      cid || ''
     );
     const courseFolders = await client.fetchFoldersForCourse(cid || '');
     dispatch(setPosts(coursePosts));

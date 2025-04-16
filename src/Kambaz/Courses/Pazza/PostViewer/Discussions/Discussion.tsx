@@ -72,7 +72,12 @@ export default function Discussion({ discussion }: { discussion: any }) {
             {isEditing?.includes('DISCUSSION-EDIT') ? (
               <PostEditor editLocation={`DISCUSSION-EDIT:${reply._id}`} />
             ) : (
-              <div className='ms-2' dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(reply?.content)}}/>
+              <div
+                className="ms-2"
+                dangerouslySetInnerHTML={{
+                  __html: DOMPurify.sanitize(reply?.content),
+                }}
+              />
             )}
           </div>
         </div>

@@ -12,7 +12,12 @@ export default function Answer({ comment, type }: { comment: any; type: any }) {
       <AnswerHeader type={type} />
       <hr className="mt-1 mb-0" />
       {comment && isEditing !== type ? (
-          <div className='m-2' dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(comment?.content)}}/>
+        <div
+          className="m-2"
+          dangerouslySetInnerHTML={{
+            __html: DOMPurify.sanitize(comment?.content),
+          }}
+        />
       ) : (
         <div className="ps-2 pe-2 pt-2">
           <PostEditor editLocation={type} />

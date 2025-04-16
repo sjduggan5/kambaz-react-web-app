@@ -5,7 +5,10 @@ const FOLDERS_API = `${REMOTE_SERVER}/api/folders`;
 const COMMENTS_API = `${REMOTE_SERVER}/api/comments`;
 const axiosWithCredentials = axios.create({ withCredentials: true });
 
-export const fetchAllPostsForUserAndCourse = async (userId: string, courseId: string) => {
+export const fetchAllPostsForUserAndCourse = async (
+  userId: string,
+  courseId: string
+) => {
   const { data } = await axiosWithCredentials.get(
     `${POSTS_API}/user/${userId}/course/${courseId}`
   );
