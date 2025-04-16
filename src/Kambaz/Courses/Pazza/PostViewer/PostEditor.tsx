@@ -107,6 +107,7 @@ export default function PostEditor({ editLocation }: { editLocation: string }) {
     } else if (editArea === 'POST') {
       const updatedPost = { ...post, content: html };
       await client.updatePost(updatedPost);
+      setPost(updatedPost);
       dispatch(updatePost(updatedPost));
       dispatch(setIsEditing(null));
       return;
@@ -128,6 +129,7 @@ export default function PostEditor({ editLocation }: { editLocation: string }) {
       newComment.commentType = 'ANSWER';
       if (post.status === 'UNANSWERED') {
         await client.updatePost({ ...post, status: 'ANSWERED' });
+        setPost({ ...post, status: 'ANSWERED' });
         dispatch(updatePost({ ...post, status: 'ANSWERED' }));
       }
     }
@@ -214,7 +216,8 @@ export default function PostEditor({ editLocation }: { editLocation: string }) {
           className="m-0"
           data-bs-toggle="tooltip"
           title={
-            editArea === 'POST' && (post.folders.length || !post.title || !html)
+            editArea === 'POST' &&
+            (post.folders.length === 0 || !post.title || !html)
               ? getTooltip()
               : undefined
           }
@@ -224,7 +227,7 @@ export default function PostEditor({ editLocation }: { editLocation: string }) {
             onClick={handleSubmit}
             disabled={
               editArea === 'POST' &&
-              (post.folders.length || !post.title || !html)
+              (post.folders.length === 0 || !post.title || !html)
             }
           >
             Submit
