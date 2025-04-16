@@ -5,9 +5,9 @@ const FOLDERS_API = `${REMOTE_SERVER}/api/folders`;
 const COMMENTS_API = `${REMOTE_SERVER}/api/comments`;
 const axiosWithCredentials = axios.create({ withCredentials: true });
 
-export const fetchAllPostsForCourse = async (courseId: string) => {
+export const fetchAllPostsForUserAndCourse = async (userId: string, courseId: string) => {
   const { data } = await axiosWithCredentials.get(
-    `${POSTS_API}/course/${courseId}`
+    `${POSTS_API}/user/${userId}/course/${courseId}`
   );
   return data;
 };
@@ -19,7 +19,7 @@ export const fetchCommentsForPost = async (postId: string) => {
   return response.data;
 };
 
-export const fetchFoldersForcourse = async (courseId: string) => {
+export const fetchFoldersForCourse = async (courseId: string) => {
   const response = await axiosWithCredentials.get(
     `${FOLDERS_API}/course/${courseId}`
   );

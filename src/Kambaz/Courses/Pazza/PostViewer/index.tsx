@@ -9,11 +9,13 @@ import PostBody from './PostBody';
 import PostBottom from './PostBottom';
 import Answer from './Answer';
 import Discussions from './Discussions';
+import { setIsEditing } from '../postsReducer';
 
 export default function PostViewer() {
   const { postId } = useParams();
   const { posts } = useSelector((state: any) => state.postsReducer);
   const { comments } = useSelector((state: any) => state.commentsReducer);
+  const { currentUser } = useSelector((state: any) => state.accountReducer);
   const [post, setPost] = useState();
   const dispatch = useDispatch();
 
@@ -29,6 +31,10 @@ export default function PostViewer() {
 
   useEffect(() => {
     fetchComments();
+  }, [postId]);
+
+  useEffect(() => {
+    dispatch(setIsEditing(null));
   }, [postId]);
 
   const instructorAnswer = comments?.find(
@@ -50,8 +56,12 @@ export default function PostViewer() {
             <PostBottom post={post} />
           </div>
         )}
-        <Answer comment={studentAnswer} type="STUDENT" />
-        <Answer comment={instructorAnswer} type="INSTRUCTOR" />
+        {(currentUser.role === 'STUDENT' || studentAnswer) && (
+          <Answer comment={studentAnswer} type="STUDENT" />
+        )}
+        {(currentUser.role === 'FACULTY' || instructorAnswer) && (
+          <Answer comment={instructorAnswer} type="INSTRUCTOR" />
+        )}
         <Discussions />
       </>
     </div>

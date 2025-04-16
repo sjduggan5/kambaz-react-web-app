@@ -7,21 +7,24 @@ import { useEffect } from 'react';
 import * as client from './client';
 import { setPosts } from './postsReducer';
 import { setFolders } from './foldersReducer';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Glance from './Glance';
 
 export default function Pazza() {
   const { cid } = useParams();
+  const { currentUser } = useSelector((state: any) => state.accountReducer);
   const dispatch = useDispatch();
   const fetchPostsAndFolders = async () => {
-    const coursePosts = await client.fetchAllPostsForCourse(cid || '');
-    const courseFolders = await client.fetchFoldersForcourse(cid || '');
+    const coursePosts = await client.fetchAllPostsForUserAndCourse(
+      currentUser._id || '', cid || ''
+    );
+    const courseFolders = await client.fetchFoldersForCourse(cid || '');
     dispatch(setPosts(coursePosts));
     dispatch(setFolders(courseFolders));
   };
   useEffect(() => {
     fetchPostsAndFolders();
-  }, [cid]);
+  }, [cid, currentUser]);
   return (
     <div id="pazza-app">
       <Navbar />
