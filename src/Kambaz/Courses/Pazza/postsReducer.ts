@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 const initialState = {
   posts: [],
   isEditing: null,
+  folderFilter: null,
 };
 const postsSlice = createSlice({
   name: 'posts',
@@ -47,6 +48,9 @@ const postsSlice = createSlice({
     setIsEditing: (state, { payload: editLocation }) => {
       state.isEditing = editLocation;
     },
+    setFolderFilter: (state, { payload: folderFilter }) => {
+      state.folderFilter = folderFilter;
+    },
   },
 });
 export const {
@@ -56,5 +60,6 @@ export const {
   editPost,
   setPosts,
   setIsEditing,
+  setFolderFilter,
 } = postsSlice.actions;
 export default postsSlice.reducer;
