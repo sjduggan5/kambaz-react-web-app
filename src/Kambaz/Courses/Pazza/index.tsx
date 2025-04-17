@@ -29,7 +29,9 @@ export default function Pazza() {
   }, [cid, currentUser]);
   return (
     <div id="pazza-app">
-      <Navbar />
+      <div className="sticky-navbar">
+        <Navbar />
+      </div>
       <div className="pazza-main-content">
         <div className="sidebar-container">
           <Sidebar />
@@ -40,6 +42,7 @@ export default function Pazza() {
             <Route path="Create" element={<PostCreator />} />
             <Route path="Glance" element={<Glance />} />
             <Route path="/" element={<Navigate to={`Glance`} />} />
+            <Route path="ManageClass" element={<Glance />} />
           </Routes>
         </div>
       </div>
