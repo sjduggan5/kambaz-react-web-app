@@ -13,7 +13,7 @@ const postsSlice = createSlice({
     },
     addPost: (state, { payload: post }) => {
       const newPost: any = {
-        _id: uuidv4(),
+        _id: post._id || uuidv4(),
         author: post.author,
         authorName: post.authorName,
         authorType: post.authorType,

@@ -32,5 +32,22 @@
     "status": "UNANSWERED",
     "postType": "QUESTION",
     "isPinned": false
+  },
+  {
+    "_id": "3",
+    "author": "234",
+    "authorName": "Bruce Wayne",
+    "authorType": "STUDENT",
+    "views": 1,
+    "createDate": "2025-04-27T18:35:43.511Z",
+    "course": "RS101",
+    "folders": ["2"],
+    "title": "Test question #3",
+    "content": "<strike>This is a question post with test text. </strike>",
+    "visibility": "PUBLIC",
+    "visibleToUserIds": [],
+    "status": "UNANSWERED",
+    "postType": "QUESTION",
+    "isPinned": false
   }
 ]

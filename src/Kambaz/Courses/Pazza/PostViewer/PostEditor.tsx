@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Editor from 'react-simple-wysiwyg';
+import Editor, { DefaultEditor, EditorProvider } from 'react-simple-wysiwyg';
 import { setIsEditing, updatePost } from '../postsReducer';
 import { useParams } from 'react-router-dom';
 import * as client from '../client';
@@ -43,6 +43,16 @@ export default function PostEditor({ editLocation }: { editLocation: string }) {
 
   function onChange(e) {
     setHtml(e.target.value);
+  }
+
+  function addCurrentUser(post) {
+    if (!post.visibleToUserIds.includes(currentUser._id)) {
+      return {
+        ...post,
+        visibleToUserIds: [...post.visibleToUserIds, currentUser._id],
+      };
+    }
+    return post;
   }
 
   function handleClick() {
@@ -105,7 +115,7 @@ export default function PostEditor({ editLocation }: { editLocation: string }) {
       dispatch(setIsEditing(null));
       return;
     } else if (editArea === 'POST') {
-      const updatedPost = { ...post, content: html };
+      const updatedPost = addCurrentUser({ ...post, content: html });
       await client.updatePost(updatedPost);
       setPost(updatedPost);
       dispatch(updatePost(updatedPost));
@@ -152,7 +162,7 @@ export default function PostEditor({ editLocation }: { editLocation: string }) {
           />
         </Form>
       )}
-      <Editor value={html} onChange={onChange} />
+      <DefaultEditor value={html} onChange={onChange} />
       {editArea === 'POST' && (
         <Form className="m-2">
           <Form.Label className="fw-bold me-2">Select Folder(s)</Form.Label>
@@ -194,21 +204,41 @@ export default function PostEditor({ editLocation }: { editLocation: string }) {
           />
           <br />
           <Form.Label className="fw-bold me-2">Visible to:</Form.Label>
-          <Form.Label className="fst-italic">
-            (Comma separated User ID's, leave empty for a public post)
-          </Form.Label>
-          <Form.Control
-            type="text"
-            placeholder={"User ID's..."}
-            value={post.visibleToUserIds.join(', ')}
-            onChange={(e) =>
-              setPost({
-                ...post,
-                visibleToUserIds: e.target.value.split(', '),
-                visibility: e.target.value === '' ? 'PUBLIC' : 'PRIVATE',
-              })
+          <Form.Check
+            inline
+            type="radio"
+            label={'Entire Class'}
+            checked={post.visibility === 'PUBLIC'}
+            onChange={() =>
+              setPost({ ...post, visibility: 'PUBLIC', visibleToUserIds: [] })
             }
           />
+          <Form.Check
+            inline
+            type="radio"
+            label={'Individual Student(s) / Instructor(s)'}
+            checked={post.visibility === 'PRIVATE'}
+            onChange={() => setPost({ ...post, visibility: 'PRIVATE' })}
+          />
+          {post.visibility === 'PRIVATE' && (
+            <div>
+              <Form.Control
+                type="text"
+                placeholder={"User ID's..."}
+                value={post.visibleToUserIds.join(', ')}
+                onChange={(e) =>
+                  setPost({
+                    ...post,
+                    visibleToUserIds: e.target.value.split(', '),
+                    visibility: e.target.value === '' ? 'PUBLIC' : 'PRIVATE',
+                  })
+                }
+              />
+              <Form.Label className="fst-italic">
+                (Comma separated User ID's)
+              </Form.Label>
+            </div>
+          )}
         </Form>
       )}
       <div className="d-flex flex-row align-items-center">
