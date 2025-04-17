@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 const initialState = {
   posts: [],
   isEditing: null,
-  folderFilter: null,
+  folderFilter: undefined,
 };
 const postsSlice = createSlice({
   name: 'posts',

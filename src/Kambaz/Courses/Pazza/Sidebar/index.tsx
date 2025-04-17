@@ -14,7 +14,6 @@ export default function Sidebar() {
 
   useEffect(() => {
     if (folderFilter) {
-      console.log(folderFilter);
       setPostsToShow(
         posts.filter((post) => post.folders.includes(folderFilter))
       );
