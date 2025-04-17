@@ -40,6 +40,7 @@ export default function Pazza() {
             <Route path="Create" element={<PostCreator />} />
             <Route path="Glance" element={<Glance />} />
             <Route path="/" element={<Navigate to={`Glance`} />} />
+            <Route path="ManageClass" element={<Glance />} />
           </Routes>
         </div>
       </div>
