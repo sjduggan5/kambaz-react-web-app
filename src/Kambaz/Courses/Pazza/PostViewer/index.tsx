@@ -45,7 +45,7 @@ export default function PostViewer() {
   );
 
   return (
-    <div className="bg-secondary p-2">
+    <div className="bg-secondary p-2 h-100">
       <>
         {post && (
           <div className="bg-white rounded-2">

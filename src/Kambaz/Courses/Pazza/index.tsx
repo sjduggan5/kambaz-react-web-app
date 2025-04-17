@@ -9,6 +9,7 @@ import { setPosts } from './postsReducer';
 import { setFolders } from './foldersReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import Glance from './Glance';
+import PostCreator from './PostCreator';
 
 export default function Pazza() {
   const { cid } = useParams();
@@ -36,6 +37,7 @@ export default function Pazza() {
         <div className="content-container">
           <Routes>
             <Route path="Posts/:postId" element={<PostViewer />} />
+            <Route path="Create" element={<PostCreator />} />
             <Route path="Glance" element={<Glance />} />
             <Route path="/" element={<Navigate to={`Glance`} />} />
           </Routes>
