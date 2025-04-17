@@ -29,7 +29,9 @@ export default function Pazza() {
   }, [cid, currentUser]);
   return (
     <div id="pazza-app">
-      <Navbar />
+      <div className="sticky-navbar">
+        <Navbar />
+      </div>
       <div className="pazza-main-content">
         <div className="sidebar-container">
           <Sidebar />

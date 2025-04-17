@@ -105,3 +105,10 @@
   border-bottom: 2px solid white !important;
   padding-bottom: 2px !important;
 }
+
+.sticky-navbar {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+}
