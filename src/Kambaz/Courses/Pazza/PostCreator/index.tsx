@@ -162,7 +162,10 @@ export default function PostCreator() {
               {`Post my ${post.postType.toLowerCase()}`}
             </button>
           </div>
-          <button className="btn btn-secondary btn-sm mt-2">{`Cancel`}</button>
+          <button
+            className="btn btn-secondary btn-sm mt-2"
+            onClick={() => navigate(`/Kambaz/Courses/${cid}/Pazza/Glance`)}
+          >{`Cancel`}</button>
         </div>
       </div>
     </div>
