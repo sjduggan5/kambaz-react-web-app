@@ -112,3 +112,28 @@
   width: 100%;
   z-index: 1000;
 }
+
+.manage-class-nav {
+  background-color: #f1f1f1;
+  padding: 0;
+}
+
+.manage-class-nav-item {
+  color: #4f5152 !important;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding-top: 0.75rem !important;
+  padding-bottom: 0.75rem !important;
+  padding-left: 2rem !important;
+  padding-right: 2rem !important;
+}
+
+.manage-class-nav-item.active {
+  background-color: white;
+  text-decoration: none !important;
+}
+
+.manage-class-nav-item:container {
+  height: 100%;
+}
