@@ -1,10 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useDispatch, useSelector } from 'react-redux';
 import ManageClassNavigation from './ManageClassNavigation';
-import { useState } from 'react';
-import { addFolder, deleteFolder, updateFolder } from '../foldersReducer';
+import { useEffect, useState } from 'react';
+import {
+  addFolder,
+  deleteFolder,
+  setFolders,
+  updateFolder,
+} from '../foldersReducer';
 import { Button } from 'react-bootstrap';
 import '../Pazza.css';
+import * as client from '../client';
 import { useParams } from 'react-router-dom';
 import { FaRegTrashCan } from 'react-icons/fa6';
 import { MdEdit } from 'react-icons/md';
@@ -21,14 +27,24 @@ export default function ManageClass() {
 
   const [selectedFolders, setSelectedFolders] = useState<string[]>([]);
 
-  const handleAddFolder = () => {
+  const fetchFolders = async () => {
+    const courseFolders = await client.fetchFoldersForCourse(cid || '');
+    dispatch(setFolders(courseFolders));
+  };
+
+  useEffect(() => {
+    fetchFolders();
+  }, [cid]);
+
+  const newFolder = {
+    course: cid,
+  };
+
+  const handleAddFolder = async () => {
     if (!newFolderName.trim()) return;
-    dispatch(
-      addFolder({
-        name: newFolderName,
-        course: cid,
-      })
-    );
+    newFolder.name = newFolderName;
+    await client.createFolder(newFolder);
+    dispatch(addFolder(newFolder));
     setNewFolderName('');
   };
 
@@ -37,11 +53,16 @@ export default function ManageClass() {
     setEditingFolderName(folder.name);
   };
 
-  const handleSaveEdit = (folderId: string) => {
+  const handleSaveEdit = async (folderId: string) => {
     if (!editingFolderName.trim()) return;
 
     const folderToUpdate = folders.find((f: any) => f._id === folderId);
     if (!folderToUpdate) return;
+
+    await client.updateFolder({
+      ...folderToUpdate,
+      name: editingFolderName,
+    });
 
     dispatch(
       updateFolder({
@@ -70,7 +91,8 @@ export default function ManageClass() {
   const handleDeleteSelected = () => {
     if (selectedFolders.length === 0) return;
 
-    selectedFolders.forEach((folderId) => {
+    selectedFolders.forEach(async (folderId) => {
+      await client.deleteFolder(folderId);
       dispatch(deleteFolder(folderId));
     });
 
