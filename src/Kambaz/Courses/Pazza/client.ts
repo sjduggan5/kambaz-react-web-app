@@ -79,6 +79,6 @@ export const createComment = async (comment: any) => {
 };
 
 export const createFolder = async (folder: any) => {
-  const { data } = await axiosWithCredentials.post(COMMENTS_API, folder);
+  const { data } = await axiosWithCredentials.post(FOLDERS_API, folder);
   return data;
 };
