@@ -22,7 +22,11 @@ export default function Sidebar() {
   useEffect(() => {
     if (folderFilter && search) {
       setPostsToShow(
-        posts.filter((post) => post.folders.includes(folderFilter) && post.title.toLowerCase().includes(search.toLowerCase()))
+        posts.filter(
+          (post) =>
+            post.folders.includes(folderFilter) &&
+            post.title.toLowerCase().includes(search.toLowerCase())
+        )
       );
     } else if (folderFilter) {
       setPostsToShow(
@@ -30,7 +34,9 @@ export default function Sidebar() {
       );
     } else if (search) {
       setPostsToShow(
-        posts.filter((post) => post.title.toLowerCase().includes(search.toLowerCase()))
+        posts.filter((post) =>
+          post.title.toLowerCase().includes(search.toLowerCase())
+        )
       );
     } else {
       setPostsToShow(posts);
@@ -61,7 +67,7 @@ export default function Sidebar() {
           className="form-control form-control-sm search-input m-1"
           placeholder="Search..."
           value={search}
-          onChange={e => setSearch(e.target.value)}
+          onChange={(e) => setSearch(e.target.value)}
         />
       </div>
       {postsToShow.filter((post) => post.isPinned).length > 0 && (

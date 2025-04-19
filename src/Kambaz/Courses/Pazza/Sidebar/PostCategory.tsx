@@ -12,9 +12,7 @@ export default function PostCategory({
 }) {
   const [showCategory, setShowCategory] = useState(true);
   const { cid } = useParams();
-  if (category === 'PINNED') {
-    console.log(posts, showCategory);
-  }
+
   return (
     <div className="pinned-section">
       <div className="d-flex flex-row justify-content-between align-items-center pinned-header">
