@@ -1,0 +1,56 @@
+[
+  {
+    "_id": "1",
+    "author": "123",
+    "authorName": "Tony Stark",
+    "authorType": "INSTRUCTOR",
+    "createDate": "2025-04-24T18:25:43.511Z",
+    "content": "Here's how you do the assignment!",
+    "commentType": "ANSWER",
+    "post": "2"
+  },
+  {
+    "_id": "2",
+    "author": "234",
+    "authorName": "Bruce Wayne",
+    "authorType": "STUDENT",
+    "createDate": "2025-04-24T18:26:43.511Z",
+    "content": "I am a bit confused on this!",
+    "commentType": "COMMENT",
+    "post": "1",
+    "isResolved": true
+  },
+  {
+    "_id": "3",
+    "author": "123",
+    "authorName": "Tony Stark",
+    "authorType": "INSTRUCTOR",
+    "createDate": "2025-04-24T18:28:43.511Z",
+    "content": "You are no longer confused?",
+    "commentType": "COMMENT",
+    "post": "1",
+    "parentComment": "2"
+  },
+  {
+    "_id": "5",
+    "author": "123",
+    "authorName": "Tony Stark",
+    "authorType": "INSTRUCTOR",
+    "createDate": "2025-04-24T18:29:43.511Z",
+    "content": "Are you still confused?",
+    "commentType": "COMMENT",
+    "post": "1",
+    "parentComment": "2"
+  },
+  {
+    "_id": "4",
+    "author": "234",
+    "authorName": "Bruce Wayne",
+    "authorType": "STUDENT",
+    "createDate": "2025-04-24T19:25:43.511Z",
+    "content": "Can you help me on this?",
+    "commentType": "COMMENT",
+    "post": "2",
+    "isResolved": false
+  }
+]

@@ -1,0 +1,53 @@
+[
+  {
+    "_id": "1",
+    "author": "123",
+    "authorName": "Tony Stark",
+    "authorType": "FACULTY",
+    "views": 1,
+    "createDate": "2025-04-23T18:25:43.511Z",
+    "course": "RS101",
+    "folders": ["1", "2"],
+    "title": "Test post #1",
+    "content": "This is a test post with test text. Can other people see my post? Reply in the comments",
+    "visibility": "PUBLIC",
+    "visibleToUserIds": [],
+    "status": "ANSWERED",
+    "postType": "NOTE",
+    "isPinned": true
+  },
+  {
+    "_id": "2",
+    "author": "234",
+    "authorName": "Bruce Wayne",
+    "authorType": "STUDENT",
+    "views": 1,
+    "createDate": "2025-04-23T18:35:43.511Z",
+    "course": "RS101",
+    "folders": ["1"],
+    "title": "Test question #2",
+    "content": "This is a question post with test text. How do you do the project?",
+    "visibility": "PUBLIC",
+    "visibleToUserIds": [],
+    "status": "UNANSWERED",
+    "postType": "QUESTION",
+    "isPinned": false
+  },
+  {
+    "_id": "3",
+    "author": "234",
+    "authorName": "Bruce Wayne",
+    "authorType": "STUDENT",
+    "views": 1,
+    "createDate": "2025-04-27T18:35:43.511Z",
+    "course": "RS101",
+    "folders": ["2"],
+    "title": "Test question #3",
+    "content": "<strike>This is a question post with test text. </strike>",
+    "visibility": "PUBLIC",
+    "visibleToUserIds": [],
+    "status": "UNANSWERED",
+    "postType": "QUESTION",
+    "isPinned": false
+  }
+]
