@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom';
 import DOMPurify from 'dompurify';
+import { useSelector } from 'react-redux';
+import { GoDotFill } from 'react-icons/go';
 
 const formatDate = (dateString: string) => {
   const date = new Date(dateString);
@@ -13,12 +15,16 @@ export default function PostItem({
   post: any;
   cid: string | undefined;
 }) {
+  const { currentUser } = useSelector((state: any) => state.accountReducer);
   return (
     <Link
       to={`/Kambaz/Courses/${cid}/Pazza/Posts/${post._id}`}
       className="post-item"
     >
       <div className="post-meta">
+        {!currentUser.postsViewed.includes(post._id) && (
+          <GoDotFill color="#3973a1" />
+        )}
         <span className={`post-type ${post.postType}`}>{post.postType}</span>
         <span className="post-title">{post.title}</span>
         <span className="post-date">{formatDate(post.createDate)}</span>

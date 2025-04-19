@@ -11,10 +11,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import Glance from './Glance';
 import PostCreator from './PostCreator';
 import ManageClass from './ManageClass';
+import PazzaProtectedRoute from './PazzaProtectedRoute';
 
 export default function Pazza() {
   const { cid } = useParams();
   const { currentUser } = useSelector((state: any) => state.accountReducer);
+  const { postsBarOpen } = useSelector((state: any) => state.postsReducer);
   const dispatch = useDispatch();
   const fetchPostsAndFolders = async () => {
     const coursePosts = await client.fetchAllPostsForUserAndCourse(
@@ -35,16 +37,25 @@ export default function Pazza() {
         <Navbar />
       </div>
       <div className="pazza-main-content">
-        <div className="sidebar-container">
-          <Sidebar />
-        </div>
+        {postsBarOpen && (
+          <div className="sidebar-container">
+            <Sidebar />
+          </div>
+        )}
         <div className="content-container">
           <Routes>
             <Route path="Posts/:postId" element={<PostViewer />} />
             <Route path="Create" element={<PostCreator />} />
             <Route path="Glance" element={<Glance />} />
             <Route path="/" element={<Navigate to={`Glance`} />} />
-            <Route path="ManageClass" element={<ManageClass />} />
+            <Route
+              path="ManageClass"
+              element={
+                <PazzaProtectedRoute>
+                  <ManageClass />
+                </PazzaProtectedRoute>
+              }
+            />
           </Routes>
         </div>
       </div>

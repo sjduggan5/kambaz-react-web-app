@@ -4,6 +4,7 @@ const initialState = {
   posts: [],
   isEditing: null,
   folderFilter: undefined,
+  postsBarOpen: true,
 };
 const postsSlice = createSlice({
   name: 'posts',
@@ -51,6 +52,9 @@ const postsSlice = createSlice({
     setFolderFilter: (state, { payload: folderFilter }) => {
       state.folderFilter = folderFilter;
     },
+    setPostsBar: (state, { payload: isPostsBarOpen }) => {
+      state.postsBarOpen = isPostsBarOpen;
+    },
   },
 });
 export const {
@@ -61,5 +65,6 @@ export const {
   setPosts,
   setIsEditing,
   setFolderFilter,
+  setPostsBar,
 } = postsSlice.actions;
 export default postsSlice.reducer;
