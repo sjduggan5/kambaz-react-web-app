@@ -2,7 +2,6 @@ import { useSelector } from 'react-redux';
 import { IoIosCheckboxOutline } from "react-icons/io";
 import { CiNoWaitingSign } from "react-icons/ci";
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
 import * as client from '../../client.ts';
 import { useEffect, useState } from 'react';
 
