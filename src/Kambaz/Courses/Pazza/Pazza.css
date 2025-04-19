@@ -336,3 +336,17 @@
 .cancel-button:hover {
   background-color: #5a6268;
 }
+
+.search-input {
+  height: 10px;
+}
+
+.create-button {
+  background-color: #3973a1;
+  color: white;
+}
+
+.create-button:hover {
+  background-color: #2f5b80;
+  color: white;
+}
