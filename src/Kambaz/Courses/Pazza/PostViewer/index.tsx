@@ -9,14 +9,16 @@ import PostBody from './PostBody';
 import PostBottom from './PostBottom';
 import Answer from './Answer';
 import Discussions from './Discussions';
-import { setIsEditing } from '../postsReducer';
+import { setIsEditing, updatePost } from '../postsReducer';
+import * as userClient from '../../../Account/client';
+import { setCurrentUser } from '../../../Account/reducer';
 
 export default function PostViewer() {
   const { postId } = useParams();
   const { posts } = useSelector((state: any) => state.postsReducer);
   const { comments } = useSelector((state: any) => state.commentsReducer);
   const { currentUser } = useSelector((state: any) => state.accountReducer);
-  const [post, setPost] = useState();
+  const [post, setPost] = useState(posts.find((p) => p._id === postId));
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -29,6 +31,20 @@ export default function PostViewer() {
     dispatch(setComments(comments));
   };
 
+  const viewPost = async () => {
+    if (post && !currentUser.postsViewed.includes(postId)) {
+      const updatedPost = { ...post, views: post.views + 1 };
+      const updatedUser = {
+        ...currentUser,
+        postsViewed: [...currentUser.postsViewed, postId],
+      };
+      await client.updatePost(updatedPost);
+      await userClient.updateUser(updatedUser);
+      dispatch(updatePost(updatedPost));
+      dispatch(setCurrentUser(updatedUser));
+    }
+  };
+
   useEffect(() => {
     fetchComments();
   }, [postId]);
@@ -36,6 +52,10 @@ export default function PostViewer() {
   useEffect(() => {
     dispatch(setIsEditing(null));
   }, [postId]);
+
+  useEffect(() => {
+    viewPost();
+  }, [currentUser, post, postId]);
 
   const instructorAnswer = comments?.find(
     (c) => c.authorType === 'INSTRUCTOR' && c.commentType === 'ANSWER'

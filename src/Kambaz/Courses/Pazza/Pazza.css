@@ -88,7 +88,6 @@
   background-color: #e1e1e1;
 }
 
-
 /* Nav bar + manage class styling */
 .blue-background {
   background-color: #3973a1;
@@ -145,7 +144,6 @@
 .manage-class-nav-item:container {
   height: 100%;
 }
-
 
 /*  Manage Folders Styling  */
 
@@ -303,7 +301,7 @@
   border-radius: 4px;
   font-size: 14px;
   min-width: 150px;
-  box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
 }
 
 .folder-edit-actions {
