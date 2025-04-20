@@ -19,7 +19,7 @@ export default function PostItem({
   return (
     <Link
       to={`/Kambaz/Courses/${cid}/Pazza/Posts/${post._id}`}
-      className="post-item"
+      className={`post-item${post.postType === 'QUESTION' && post.status === 'UNANSWERED' ? '-unanswered' : ''}`}
     >
       <div className="post-meta">
         {!currentUser.postsViewed.includes(post._id) && (

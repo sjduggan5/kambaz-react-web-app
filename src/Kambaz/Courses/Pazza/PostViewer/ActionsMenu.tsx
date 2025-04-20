@@ -1,6 +1,6 @@
 import { Dropdown } from 'react-bootstrap';
-import { useDispatch } from 'react-redux';
-import { deletePost, setIsEditing } from '../postsReducer';
+import { useDispatch, useSelector } from 'react-redux';
+import { deletePost, setIsEditing, updatePost } from '../postsReducer';
 import * as client from '../client';
 import { deleteComment } from '../commentsReducer';
 import { useNavigate, useParams } from 'react-router';
@@ -14,7 +14,10 @@ export default function ActionsMenu({
   type: string;
   entityId: string;
 }) {
-  const { cid } = useParams();
+  const { cid, postId } = useParams();
+  const { comments } = useSelector((state: any) => state.commentsReducer);
+  const { posts } = useSelector((state: any) => state.postsReducer);
+  const post = posts.find((p) => p._id === postId);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleEdit = () => {
@@ -25,6 +28,16 @@ export default function ActionsMenu({
     if (type === 'COMMENT') {
       await client.deleteComment(entityId);
       dispatch(deleteComment(entityId));
+
+      if (
+        !comments
+          .filter((c: any) => c._id !== entityId)
+          .some((c: any) => c.commentType === 'ANSWER')
+      ) {
+        const updatedPost = { ...post, status: 'UNANSWERED' };
+        await client.updatePost(updatedPost);
+        dispatch(updatePost(updatedPost));
+      }
     } else {
       await client.deletePost(entityId);
       dispatch(deletePost(entityId));

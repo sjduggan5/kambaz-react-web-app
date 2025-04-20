@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { DefaultEditor } from 'react-simple-wysiwyg';
 import { setIsEditing, updatePost } from '../postsReducer';
@@ -40,6 +40,10 @@ export default function PostEditor({ editLocation }: { editLocation: string }) {
   const existingContent = getExistingContent();
   const [html, setHtml] = useState(existingContent);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    setPost(posts.find((p: any) => p._id === postId));
+  }, [postId]);
 
   function onChange(e: any) {
     setHtml(e.target.value);
@@ -142,7 +146,7 @@ export default function PostEditor({ editLocation }: { editLocation: string }) {
       newComment.isResolved = false;
     } else {
       newComment.commentType = 'ANSWER';
-      if (post.status === 'UNANSWERED') {
+      if (post.postType === 'QUESTION') {
         await client.updatePost({ ...post, status: 'ANSWERED' });
         setPost({ ...post, status: 'ANSWERED' });
         dispatch(updatePost({ ...post, status: 'ANSWERED' }));
