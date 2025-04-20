@@ -36,6 +36,7 @@ export default function Glance() {
   const { currentUser } = useSelector((state: any) => state.accountReducer);
   const { posts } = useSelector((state: any) => state.postsReducer);
   const { comments } = useSelector((state: any) => state.commentsReducer);
+  const unreadPosts = posts.length - currentUser.postsViewed.length;
   const unansweredCount = getUnansweredQuestions(posts);
   const instructorResponseCount = getInstructorResponses(comments);
   const setudentResponseCount = getStudentResponses(comments);
@@ -58,7 +59,10 @@ export default function Glance() {
           ? <><CiNoWaitingSign className="me-1" />Unanswered questions: {unansweredCount} </>
           : <><IoIosCheckboxOutline className="me-1" /> No unanswered questions</>}
       </div>
-      <div><CiNoWaitingSign className="me-1" /> UNREAD POSTS WILL GO HERE WHEN DONE</div>
+      <div>
+        {unreadPosts > 0
+          ? <><CiNoWaitingSign className="me-1" />Unread posts: {unreadPosts} </>
+          : <><IoIosCheckboxOutline className="me-1" /> No unread posts</>}</div>
       <hr />
       <h1>Stats</h1>
       <div> Total number of posts: {posts.length} </div>
