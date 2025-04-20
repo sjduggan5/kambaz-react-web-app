@@ -1,7 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import '../Pazza.css';
-import { setIsEditing, deletePost } from '../postsReducer';
-import * as client from '../client';
+import { setIsEditing } from '../postsReducer';
 
 export default function PostBottom({ post }: { post: any }) {
   const { currentUser } = useSelector((state: any) => state.accountReducer);
