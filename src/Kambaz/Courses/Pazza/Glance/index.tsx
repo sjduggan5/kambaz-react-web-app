@@ -1,9 +1,10 @@
 import { useSelector } from 'react-redux';
-import { IoIosCheckboxOutline } from "react-icons/io";
-import { CiNoWaitingSign } from "react-icons/ci";
 import { useParams } from 'react-router-dom';
 import * as client from '../../client.ts';
 import { useEffect, useState } from 'react';
+import { FaCheckSquare, FaUnlockAlt } from 'react-icons/fa';
+import '../Pazza.css';
+import { BsFillExclamationSquareFill } from 'react-icons/bs';
 
 interface Comment {
   authorType: 'INSTRUCTOR' | 'STUDENT';
@@ -18,18 +19,21 @@ interface Post {
 
 const getUnansweredQuestions = (posts: Post[]): number => {
   return posts.filter(
-    post => post.postType === 'QUESTION' && post.status === 'UNANSWERED'
+    (post: Post) => post.postType === 'QUESTION' && post.status === 'UNANSWERED'
   ).length;
 };
 
 const getInstructorResponses = (comments: Comment[]): number => {
-  return comments.filter(comment => comment.authorType === 'INSTRUCTOR').length;
+  return comments.filter(
+    (comment: Comment) => comment.authorType === 'INSTRUCTOR'
+  ).length;
 };
 
 const getStudentResponses = (comments: Comment[]): number => {
-  return comments.filter(comment => comment.authorType === 'INSTRUCTOR').length;
+  return comments.filter(
+    (comment: Comment) => comment.authorType === 'INSTRUCTOR'
+  ).length;
 };
-
 
 export default function Glance() {
   const { cid } = useParams();
@@ -49,33 +53,74 @@ export default function Glance() {
     fetchUsers();
   }, [cid]);
   return (
-    <div className="posts-list">
-      <h2>Welcome back {currentUser.firstName}</h2>
-      <h3>Recent Posts</h3>
-      <p>Select a post from the sidebar to view its details</p>
-      <h1>About the Posts</h1>
-      <div>
-        {unansweredCount > 0
-          ? <><CiNoWaitingSign className="me-1" />Unanswered questions: {unansweredCount} </>
-          : <><IoIosCheckboxOutline className="me-1" /> No unanswered questions</>}
+    <div className="bg-secondary p-2 h-100">
+      <div className="d-flex flex-row align-items-center">
+        <FaUnlockAlt color="dimgray" />
+        <div className="glance-text fs-2 ms-3">Class at a Glance</div>
       </div>
-      <div>
-        {unreadPosts > 0
-          ? <><CiNoWaitingSign className="me-1" />Unread posts: {unreadPosts} </>
-          : <><IoIosCheckboxOutline className="me-1" /> No unread posts</>}</div>
-      <hr />
-      <h1>Stats</h1>
-      <div> Total number of posts: {posts.length} </div>
-      <div>Instructor responses: {instructorResponseCount}</div>
-      <div>Student responses: {setudentResponseCount}</div>
-      <div>Students enrolled: {users.length}</div>
+      <div className="bg-light rounded ps-2 d-flex flex-row pb-5 pt-2">
+        <div className="w-50">
+          <div>
+            {unansweredCount > 0 ? (
+              <div className="mt-2 d-flex flex-row align-items-center">
+                <BsFillExclamationSquareFill
+                  size="30"
+                  color="darkred"
+                  className="me-1"
+                />
+                <div className="fs-4 fw-bold">
+                  {unansweredCount} unanswered questions
+                </div>
+              </div>
+            ) : (
+              <div className="mt-2 d-flex flex-row align-items-center">
+                <FaCheckSquare size="30" color="green" className="me-1" />
+                <div className="fs-4 fw-bold">no unanswered questions</div>
+              </div>
+            )}
+          </div>
+          <div>
+            {unreadPosts > 0 ? (
+              <div className="mt-2 d-flex flex-row align-items-center">
+                <BsFillExclamationSquareFill
+                  size="30"
+                  color="darkred"
+                  className="me-1"
+                />
+                <div className="fs-4 fw-bold">{unreadPosts} unread posts</div>
+              </div>
+            ) : (
+              <div className="mt-2 d-flex flex-row align-items-center">
+                <FaCheckSquare size="30" color="limegreen" className="me-1" />
+                <div className="fs-4 fw-bold">no unread posts</div>
+              </div>
+            )}
+          </div>
+        </div>
+        <hr />
+        <table>
+          <tbody>
+            <tr>
+              <td className="text-end fw-bold pe-2">{posts.length}</td>
+              <td>Total number of posts</td>
+            </tr>
+            <tr>
+              <td className="text-end fw-bold pe-2">
+                {instructorResponseCount}
+              </td>
+              <td>Instructor responses</td>
+            </tr>
+            <tr>
+              <td className="text-end fw-bold pe-2">{setudentResponseCount}</td>
+              <td>Student responses</td>
+            </tr>
+            <tr>
+              <td className="text-end fw-bold pe-2">{users.length}</td>
+              <td>Students enrolled</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }
-
-//Number of unread posts or no unread posts
-// Number of unanswered posts or no unanswered posts DONE
-// Total number of posts DONE
-// Number of instructor responses DONE
-// Number of student responses DONE
-// Number of students enrolled

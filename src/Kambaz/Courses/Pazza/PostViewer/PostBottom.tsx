@@ -7,17 +7,8 @@ export default function PostBottom({ post }: { post: any }) {
   const { currentUser } = useSelector((state: any) => state.accountReducer);
   const dispatch = useDispatch();
 
-
   const handleClick = () => {
     dispatch(setIsEditing('POST'));
-  };
-
-  const handleDelete = async () => {
-    if (window.confirm('Are you sure you want to delete this post?')) {
-      await client.deletePost(post._id);
-      dispatch(deletePost(post._id));
-      // navigate(`/Kambaz/Courses/${post.course}/Pazza/Glance`);
-    }
   };
 
   const canEdit =
@@ -31,12 +22,6 @@ export default function PostBottom({ post }: { post: any }) {
             onClick={handleClick}
           >
             Edit
-          </button>
-          <button
-            className="btn btn-danger float-end btn-sm me-2"
-            onClick={handleDelete}
-          >
-            Delete
           </button>
         </div>
       )}

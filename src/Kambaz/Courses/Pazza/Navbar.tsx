@@ -49,8 +49,11 @@ export default function NavbarComponent() {
             )}
           </Nav>
           <Nav>
-            <Nav.Link className="navbar-item" href="">
-              <LuSquareUserRound size={25} />{' '}
+            <Nav.Link
+              className="navbar-item d-flex flex-row align-items-center"
+              href=""
+            >
+              <LuSquareUserRound size={25} className="me-1" />
               {`${currentUser.firstName} ${currentUser.lastName}`}
             </Nav.Link>
           </Nav>
