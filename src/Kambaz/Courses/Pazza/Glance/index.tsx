@@ -35,7 +35,6 @@ export default function Glance() {
   const { cid } = useParams();
   const { currentUser } = useSelector((state: any) => state.accountReducer);
   const { posts } = useSelector((state: any) => state.postsReducer);
-  console.log(currentUser.postsViewed);
   const { comments } = useSelector((state: any) => state.commentsReducer);
   const unreadPosts = posts.length - currentUser.postsViewed.length;
   const unansweredCount = getUnansweredQuestions(posts);
