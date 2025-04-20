@@ -14,7 +14,7 @@
     "visibleToUserIds": [],
     "status": "ANSWERED",
     "postType": "NOTE",
-    "isPinned": true
+    "isPinned": false
   },
   {
     "_id": "2",
@@ -44,8 +44,8 @@
     "folders": ["2"],
     "title": "Test question #3",
     "content": "<strike>This is a question post with test text. </strike>",
-    "visibility": "PUBLIC",
-    "visibleToUserIds": [],
+    "visibility": "PRIVATE",
+    "visibleToUserIds": ["123", "234"],
     "status": "UNANSWERED",
     "postType": "QUESTION",
     "isPinned": false
