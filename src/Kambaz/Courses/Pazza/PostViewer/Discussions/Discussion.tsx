@@ -28,7 +28,9 @@ const formatDate = (dateString: string) => {
 export default function Discussion({ discussion }: { discussion: any }) {
   const { comments } = useSelector((state: any) => state.commentsReducer);
   const { isEditing } = useSelector((state: any) => state.postsReducer);
-  const replies = comments.filter((c) => c.parentComment === discussion._id);
+  const replies = comments.filter(
+    (c: any) => c.parentComment === discussion._id
+  );
   const dispatch = useDispatch();
 
   const handleChange = async () => {
@@ -66,7 +68,7 @@ export default function Discussion({ discussion }: { discussion: any }) {
           />
         )}
       </div>
-      {replies?.map((reply) => (
+      {replies?.map((reply: any) => (
         <div className="discussion-reply ms-3 mt-2">
           <div className="d-flex flex-row align-items-center">
             <div className="fs-6 fw-bold me-2">{reply.authorName}</div>

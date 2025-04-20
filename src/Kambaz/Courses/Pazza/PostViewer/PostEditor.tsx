@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Editor, { DefaultEditor, EditorProvider } from 'react-simple-wysiwyg';
+import { DefaultEditor } from 'react-simple-wysiwyg';
 import { setIsEditing, updatePost } from '../postsReducer';
 import { useParams } from 'react-router-dom';
 import * as client from '../client';
@@ -16,12 +16,12 @@ export default function PostEditor({ editLocation }: { editLocation: string }) {
   const { comments } = useSelector((state: any) => state.commentsReducer);
   const { currentUser } = useSelector((state: any) => state.accountReducer);
   const { folders } = useSelector((state: any) => state.foldersReducer);
-  const [post, setPost] = useState(posts.find((p) => p._id === postId));
+  const [post, setPost] = useState(posts.find((p: any) => p._id === postId));
   const instructorAnswer = comments?.find(
-    (c) => c.authorType === 'INSTRUCTOR' && c.commentType === 'ANSWER'
+    (c: any) => c.authorType === 'INSTRUCTOR' && c.commentType === 'ANSWER'
   );
   const studentAnswer = comments?.find(
-    (c) => c.authorType === 'STUDENT' && c.commentType === 'ANSWER'
+    (c: any) => c.authorType === 'STUDENT' && c.commentType === 'ANSWER'
   );
 
   function getExistingContent() {
@@ -32,7 +32,7 @@ export default function PostEditor({ editLocation }: { editLocation: string }) {
     } else if (editArea === 'INSTRUCTOR') {
       return instructorAnswer?.content;
     } else if (editArea === 'DISCUSSION-EDIT') {
-      return comments.find((c) => c._id === relatedComment).content;
+      return comments.find((c: any) => c._id === relatedComment).content;
     } else {
       return undefined;
     }
@@ -41,11 +41,11 @@ export default function PostEditor({ editLocation }: { editLocation: string }) {
   const [html, setHtml] = useState(existingContent);
   const dispatch = useDispatch();
 
-  function onChange(e) {
+  function onChange(e: any) {
     setHtml(e.target.value);
   }
 
-  function addCurrentUser(post) {
+  function addCurrentUser(post: any) {
     if (!post.visibleToUserIds.includes(currentUser._id)) {
       return {
         ...post,
@@ -108,7 +108,9 @@ export default function PostEditor({ editLocation }: { editLocation: string }) {
       dispatch(setIsEditing(null));
       return;
     } else if (editArea === 'DISCUSSION-EDIT') {
-      const existingComment = comments.find((c) => c._id === relatedComment);
+      const existingComment = comments.find(
+        (c: any) => c._id === relatedComment
+      );
       const updatedComment = { ...existingComment, content: html };
       await client.updateComment(updatedComment);
       dispatch(updateComment(updatedComment));
@@ -130,6 +132,9 @@ export default function PostEditor({ editLocation }: { editLocation: string }) {
       createDate: new Date(),
       content: html,
       post: postId,
+      commentType: '',
+      parentComment: undefined as string | undefined,
+      isResolved: undefined as boolean | undefined,
     };
     if (editArea === 'DISCUSSION-NEW') {
       newComment.commentType = 'COMMENT';
@@ -166,7 +171,7 @@ export default function PostEditor({ editLocation }: { editLocation: string }) {
       {editArea === 'POST' && (
         <Form className="m-2">
           <Form.Label className="fw-bold me-2">Select Folder(s)</Form.Label>
-          {folders.map((folder) => (
+          {folders.map((folder: any) => (
             <Form.Check
               inline
               label={folder.name}
@@ -175,7 +180,7 @@ export default function PostEditor({ editLocation }: { editLocation: string }) {
                 if (post.folders.includes(folder._id)) {
                   setPost({
                     ...post,
-                    folders: post.folders.filter((f) => f !== folder._id),
+                    folders: post.folders.filter((f: any) => f !== folder._id),
                   });
                 } else {
                   setPost({

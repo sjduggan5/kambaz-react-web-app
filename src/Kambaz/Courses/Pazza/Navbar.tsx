@@ -73,7 +73,7 @@ export default function NavbarComponent() {
           />
         )}
         <FaFolder color="#3973a1" />
-        {folders.map((folder) => (
+        {folders.map((folder: any) => (
           <button
             className={`btn btn-sm ${folderFilter === folder._id ? 'btn-primary' : 'btn-secondary'} ms-3`}
             onClick={() => {

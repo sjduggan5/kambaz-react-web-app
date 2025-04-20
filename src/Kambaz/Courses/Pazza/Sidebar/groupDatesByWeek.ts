@@ -1,4 +1,4 @@
-export default function groupPostsByDate(posts) {
+export default function groupPostsByDate(posts: any[]) {
   const now = new Date();
   const today = now.toDateString();
   const yesterday = new Date(now);
@@ -6,12 +6,12 @@ export default function groupPostsByDate(posts) {
   const yesterdayStr = yesterday.toDateString();
 
   const result = {
-    Today: [],
-    Yesterday: [],
-    'Last Week': [],
+    Today: [] as any[],
+    Yesterday: [] as any[],
+    'Last Week': [] as any[],
   };
 
-  const weekGroups = {};
+  const weekGroups = {} as any;
 
   for (const post of posts) {
     const postDate = new Date(post.createDate);
@@ -36,12 +36,10 @@ export default function groupPostsByDate(posts) {
       const sundayStr = `${sunday.getMonth() + 1}/${sunday.getDate()}`;
       const range = `WEEK ${mondayStr} - ${sundayStr}`;
 
-      const currentWeekStart = new Date(monday);
-      // currentWeekStart.setDate(now.getDate() - ((now.getDay() + 6) % 7));
-      const lastWeekStart = new Date(currentWeekStart);
-      lastWeekStart.setDate(currentWeekStart.getDate() - 7);
-      const lastWeekEnd = new Date(currentWeekStart);
-      lastWeekEnd.setDate(currentWeekStart.getDate() - 1);
+      const lastWeekStart = new Date(monday);
+      lastWeekStart.setDate(monday.getDate() - 7);
+      const lastWeekEnd = new Date(monday);
+      lastWeekEnd.setDate(monday.getDate() - 1);
 
       if (postDate >= lastWeekStart && postDate <= lastWeekEnd) {
         result['Last Week'].push(post);

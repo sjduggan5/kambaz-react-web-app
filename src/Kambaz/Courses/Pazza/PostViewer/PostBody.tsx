@@ -20,8 +20,8 @@ export default function PostBody({ post }: { post: any }) {
           />
           <div className="d-flex flex-row align-items-center mt-3">
             {folders
-              .filter((f) => post?.folders.includes(f._id))
-              .map((folder) => (
+              .filter((f: any) => post?.folders.includes(f._id))
+              .map((folder: any) => (
                 <div className="bg-primary me-2 p-1 rounded-3 text-white fs-6">
                   {folder.name}
                 </div>

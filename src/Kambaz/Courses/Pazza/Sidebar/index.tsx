@@ -14,7 +14,7 @@ export default function Sidebar() {
 
   const [postsToShow, setPostsToShow] = useState(posts);
   const [groupedPosts, setGroupedPosts] = useState(
-    groupPostsByDate(postsToShow.filter((post) => !post.isPinned))
+    groupPostsByDate(postsToShow.filter((post: any) => !post.isPinned))
   );
   const [search, setSearch] = useState('');
   const navigate = useNavigate();
@@ -23,18 +23,18 @@ export default function Sidebar() {
     if (folderFilter && search) {
       setPostsToShow(
         posts.filter(
-          (post) =>
+          (post: any) =>
             post.folders.includes(folderFilter) &&
             post.title.toLowerCase().includes(search.toLowerCase())
         )
       );
     } else if (folderFilter) {
       setPostsToShow(
-        posts.filter((post) => post.folders.includes(folderFilter))
+        posts.filter((post: any) => post.folders.includes(folderFilter))
       );
     } else if (search) {
       setPostsToShow(
-        posts.filter((post) =>
+        posts.filter((post: any) =>
           post.title.toLowerCase().includes(search.toLowerCase())
         )
       );
@@ -45,7 +45,7 @@ export default function Sidebar() {
 
   useEffect(() => {
     setGroupedPosts(
-      groupPostsByDate(postsToShow.filter((post) => !post.isPinned))
+      groupPostsByDate(postsToShow.filter((post: any) => !post.isPinned))
     );
   }, [postsToShow]);
 
@@ -70,13 +70,14 @@ export default function Sidebar() {
           onChange={(e) => setSearch(e.target.value)}
         />
       </div>
-      {postsToShow.filter((post) => post.isPinned).length > 0 && (
+      {postsToShow.filter((post: any) => post.isPinned).length > 0 && (
         <PostCategory
-          posts={postsToShow.filter((post) => post.isPinned)}
+          posts={postsToShow.filter((post: any) => post.isPinned)}
           category="PINNED"
         />
       )}
-      {Object.entries(groupedPosts)
+      {(Object.entries(groupedPosts) as any[])
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         .filter(([_, postGroup]) => postGroup.length > 0)
         .map(
           ([category, postGroup]) =>
