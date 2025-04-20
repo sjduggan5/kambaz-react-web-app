@@ -49,8 +49,11 @@ export default function NavbarComponent() {
             )}
           </Nav>
           <Nav>
-            <Nav.Link className="navbar-item" href="">
-              <LuSquareUserRound size={25} />{' '}
+            <Nav.Link
+              className="navbar-item d-flex flex-row align-items-center"
+              href=""
+            >
+              <LuSquareUserRound size={25} className="me-1" />
               {`${currentUser.firstName} ${currentUser.lastName}`}
             </Nav.Link>
           </Nav>
@@ -73,7 +76,7 @@ export default function NavbarComponent() {
           />
         )}
         <FaFolder color="#3973a1" />
-        {folders.map((folder) => (
+        {folders.map((folder: any) => (
           <button
             className={`btn btn-sm ${folderFilter === folder._id ? 'btn-primary' : 'btn-secondary'} ms-3`}
             onClick={() => {

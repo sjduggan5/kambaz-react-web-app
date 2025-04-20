@@ -36,13 +36,13 @@ export default function ManageClass() {
     fetchFolders();
   }, [cid]);
 
-  const newFolder = {
-    course: cid,
-  };
-
   const handleAddFolder = async () => {
     if (!newFolderName.trim()) return;
-    newFolder.name = newFolderName;
+
+    const newFolder = {
+      course: cid,
+      name: newFolderName,
+    };
     await client.createFolder(newFolder);
     dispatch(addFolder(newFolder));
     setNewFolderName('');

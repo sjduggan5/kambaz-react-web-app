@@ -5,6 +5,8 @@ import Form from 'react-bootstrap/esm/Form';
 import * as client from '../../client';
 import { updateComment } from '../../commentsReducer';
 import DOMPurify from 'dompurify';
+import ActionsMenu from '../ActionsMenu';
+import { useEffect, useState } from 'react';
 
 const formatDate = (dateString: string) => {
   const date = new Date(dateString);
@@ -28,8 +30,26 @@ const formatDate = (dateString: string) => {
 export default function Discussion({ discussion }: { discussion: any }) {
   const { comments } = useSelector((state: any) => state.commentsReducer);
   const { isEditing } = useSelector((state: any) => state.postsReducer);
-  const replies = comments.filter((c) => c.parentComment === discussion._id);
+  const [editArea, setEditArea] = useState();
+  const [editId, setEditId] = useState();
+  const { currentUser } = useSelector((state: any) => state.accountReducer);
+  const replies = comments.filter(
+    (c: any) => c.parentComment === discussion._id
+  );
   const dispatch = useDispatch();
+  const canSeeDropdown =
+    currentUser?.role === 'FACULTY' || discussion?.author === currentUser._id;
+
+  useEffect(() => {
+    if (isEditing) {
+      const details = isEditing.split(':');
+      setEditArea(details[0]);
+      setEditId(details[1]);
+    } else {
+      setEditArea(undefined);
+      setEditId(undefined);
+    }
+  }, [isEditing]);
 
   const handleChange = async () => {
     await client.updateComment({
@@ -56,32 +76,51 @@ export default function Discussion({ discussion }: { discussion: any }) {
         <div className="fs-6">{formatDate(discussion.createDate)}</div>
       </div>
       <div className="fs-6">
-        {isEditing?.includes('DISCUSSION-EDIT') ? (
+        {editArea === 'DISCUSSION-EDIT' && editId === discussion._id ? (
           <PostEditor editLocation={`DISCUSSION-EDIT:${discussion._id}`} />
         ) : (
-          <div
-            dangerouslySetInnerHTML={{
-              __html: DOMPurify.sanitize(discussion?.content),
-            }}
-          />
+          <div className="d-flex flex-row justify-content-between">
+            <div
+              className="m-2"
+              dangerouslySetInnerHTML={{
+                __html: DOMPurify.sanitize(discussion?.content),
+              }}
+            />
+            {canSeeDropdown && (
+              <ActionsMenu
+                location={`DISCUSSION-EDIT:${discussion._id}`}
+                type="COMMENT"
+                entityId={discussion?._id}
+              />
+            )}
+          </div>
         )}
       </div>
-      {replies?.map((reply) => (
+      {replies?.map((reply: any) => (
         <div className="discussion-reply ms-3 mt-2">
           <div className="d-flex flex-row align-items-center">
             <div className="fs-6 fw-bold me-2">{reply.authorName}</div>
             <div className="fs-6">{formatDate(reply.createDate)}</div>
           </div>
           <div className="fs-6">
-            {isEditing?.includes('DISCUSSION-EDIT') ? (
+            {editArea === 'DISCUSSION-EDIT' && editId === reply._id ? (
               <PostEditor editLocation={`DISCUSSION-EDIT:${reply._id}`} />
             ) : (
-              <div
-                className="ms-2"
-                dangerouslySetInnerHTML={{
-                  __html: DOMPurify.sanitize(reply?.content),
-                }}
-              />
+              <div className="d-flex flex-row justify-content-between">
+                <div
+                  className="m-2"
+                  dangerouslySetInnerHTML={{
+                    __html: DOMPurify.sanitize(reply?.content),
+                  }}
+                />
+                {canSeeDropdown && (
+                  <ActionsMenu
+                    location={`DISCUSSION-EDIT:${reply._id}`}
+                    type="COMMENT"
+                    entityId={reply?._id}
+                  />
+                )}
+              </div>
             )}
           </div>
         </div>

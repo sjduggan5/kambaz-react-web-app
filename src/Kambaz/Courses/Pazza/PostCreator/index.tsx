@@ -15,6 +15,9 @@ export default function PostCreator() {
     postType: 'QUESTION',
     visibility: 'PUBLIC',
     folders: [],
+    title: '',
+    content: '',
+    visibleToUserIds: [] as string[],
   });
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -122,12 +125,14 @@ export default function PostCreator() {
           onChange={(e) => setPost({ ...post, content: e.target.value })}
         />
         <Form.Label className="fw-bold me-2">Select Folder(s)</Form.Label>
-        {folders.map((folder) => (
+        {folders.map((folder: any) => (
           <Form.Check
             inline
             label={folder.name}
+            // @ts-expect-error redux thinks folders is never[]
             checked={post.folders.includes(folder._id)}
             onChange={() => {
+              // @ts-expect-error redux thinks folders is never[]
               if (post.folders.includes(folder._id)) {
                 setPost({
                   ...post,

@@ -5,9 +5,11 @@ import PostEditor from '../PostEditor';
 export default function Discussions() {
   const { comments } = useSelector((state: any) => state.commentsReducer);
   const discussionComments = comments.filter(
-    (c) => c.commentType === 'COMMENT'
+    (c: any) => c.commentType === 'COMMENT'
   );
-  const rootDiscussions = discussionComments.filter((c) => !c.parentComment);
+  const rootDiscussions = discussionComments.filter(
+    (c: any) => !c.parentComment
+  );
   return (
     <div className="bg-white rounded-2 mt-2">
       <div className="pt-1 ps-1 pe-1 d-flex flex-row align-items-center">
@@ -17,7 +19,7 @@ export default function Discussions() {
         </div>
       </div>
       <hr className="mt-1 mb-0" />
-      {rootDiscussions.map((discussion) => (
+      {rootDiscussions.map((discussion: any) => (
         <Discussion discussion={discussion} />
       ))}
       <hr className="m-0" />

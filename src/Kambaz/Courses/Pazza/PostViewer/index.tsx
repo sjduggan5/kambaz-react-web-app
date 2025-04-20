@@ -18,11 +18,11 @@ export default function PostViewer() {
   const { posts } = useSelector((state: any) => state.postsReducer);
   const { comments } = useSelector((state: any) => state.commentsReducer);
   const { currentUser } = useSelector((state: any) => state.accountReducer);
-  const [post, setPost] = useState(posts.find((p) => p._id === postId));
+  const [post, setPost] = useState(posts.find((p: any) => p._id === postId));
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const currentPost = posts.find((p) => p._id === postId);
+    const currentPost = posts.find((p: any) => p._id === postId);
     setPost(currentPost);
   }, [postId, posts]);
 
@@ -58,10 +58,10 @@ export default function PostViewer() {
   }, [currentUser, post, postId]);
 
   const instructorAnswer = comments?.find(
-    (c) => c.authorType === 'INSTRUCTOR' && c.commentType === 'ANSWER'
+    (c: any) => c.authorType === 'INSTRUCTOR' && c.commentType === 'ANSWER'
   );
   const studentAnswer = comments?.find(
-    (c) => c.authorType === 'STUDENT' && c.commentType === 'ANSWER'
+    (c: any) => c.authorType === 'STUDENT' && c.commentType === 'ANSWER'
   );
 
   return (
