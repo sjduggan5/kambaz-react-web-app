@@ -74,7 +74,7 @@ export default function Glance() {
               </div>
             ) : (
               <div className="mt-2 d-flex flex-row align-items-center">
-                <FaCheckSquare size="30" color="green" className="me-1" />
+                <FaCheckSquare size="30" color="limegreen" className="me-1" />
                 <div className="fs-4 fw-bold">no unanswered questions</div>
               </div>
             )}
