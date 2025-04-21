@@ -11,7 +11,7 @@ export default function PostEditor({ editLocation }: { editLocation: string }) {
   const editDetails = editLocation.split(':');
   const editArea = editDetails[0];
   const relatedComment = editDetails[1] || undefined;
-  const { postId } = useParams();
+  const { cid, postId } = useParams();
   const { posts, isEditing } = useSelector((state: any) => state.postsReducer);
   const { comments } = useSelector((state: any) => state.commentsReducer);
   const { currentUser } = useSelector((state: any) => state.accountReducer);
@@ -139,6 +139,7 @@ export default function PostEditor({ editLocation }: { editLocation: string }) {
       commentType: '',
       parentComment: undefined as string | undefined,
       isResolved: undefined as boolean | undefined,
+      course: cid,
     };
     if (editArea === 'DISCUSSION-NEW') {
       newComment.commentType = 'COMMENT';

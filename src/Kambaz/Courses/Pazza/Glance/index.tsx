@@ -30,20 +30,20 @@ const getInstructorResponses = (comments: Comment[]): number => {
 };
 
 const getStudentResponses = (comments: Comment[]): number => {
-  return comments.filter(
-    (comment: Comment) => comment.authorType === 'INSTRUCTOR'
-  ).length;
+  return comments.filter((comment: Comment) => comment.authorType === 'STUDENT')
+    .length;
 };
 
 export default function Glance() {
   const { cid } = useParams();
   const { currentUser } = useSelector((state: any) => state.accountReducer);
   const { posts } = useSelector((state: any) => state.postsReducer);
-  const { comments } = useSelector((state: any) => state.commentsReducer);
+  const { allComments } = useSelector((state: any) => state.commentsReducer);
+  console.log(allComments);
   const unreadPosts = posts.length - currentUser.postsViewed.length;
   const unansweredCount = getUnansweredQuestions(posts);
-  const instructorResponseCount = getInstructorResponses(comments);
-  const setudentResponseCount = getStudentResponses(comments);
+  const instructorResponseCount = getInstructorResponses(allComments);
+  const setudentResponseCount = getStudentResponses(allComments);
   const [users, setUsers] = useState([]);
   const fetchUsers = async () => {
     const courseUsers = await client.findUsersForCourse(cid || '');
@@ -51,7 +51,7 @@ export default function Glance() {
   };
   useEffect(() => {
     fetchUsers();
-  }, [cid]);
+  }, [cid, posts, allComments]);
   return (
     <div className="bg-secondary p-2 h-100">
       <div className="d-flex flex-row align-items-center">

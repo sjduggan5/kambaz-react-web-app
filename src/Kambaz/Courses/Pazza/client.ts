@@ -22,6 +22,13 @@ export const fetchCommentsForPost = async (postId: string) => {
   return response.data;
 };
 
+export const fetchCommentsForCourse = async (courseId: string) => {
+  const response = await axiosWithCredentials.get(
+    `${COMMENTS_API}/course/${courseId}`
+  );
+  return response.data;
+};
+
 export const fetchFoldersForCourse = async (courseId: string) => {
   const response = await axiosWithCredentials.get(
     `${FOLDERS_API}/course/${courseId}`

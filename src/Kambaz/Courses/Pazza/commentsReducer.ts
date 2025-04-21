@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { v4 as uuidv4 } from 'uuid';
 const initialState = {
+  allComments: [],
   comments: [],
 };
 const commentsSlice = createSlice({
@@ -24,6 +25,7 @@ const commentsSlice = createSlice({
         isResolved: false,
       };
       state.comments = [...state.comments, newComment] as any;
+      state.allComments = [...state.allComments, newComment] as any;
     },
     deleteComment: (state, { payload: commentId }) => {
       state.comments = state.comments.filter((c: any) => c._id !== commentId);
@@ -38,6 +40,9 @@ const commentsSlice = createSlice({
         c._id === commentId ? { ...c, editing: true } : c
       ) as any;
     },
+    setAllComments: (state, { payload: allComments }) => {
+      state.allComments = allComments;
+    },
   },
 });
 export const {
@@ -46,5 +51,6 @@ export const {
   deleteComment,
   updateComment,
   editComment,
+  setAllComments,
 } = commentsSlice.actions;
 export default commentsSlice.reducer;

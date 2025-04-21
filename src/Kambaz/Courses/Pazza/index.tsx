@@ -12,6 +12,7 @@ import Glance from './Glance';
 import PostCreator from './PostCreator';
 import ManageClass from './ManageClass';
 import PazzaProtectedRoute from './PazzaProtectedRoute';
+import { setAllComments } from './commentsReducer';
 
 export default function Pazza() {
   const { cid } = useParams();
@@ -24,8 +25,10 @@ export default function Pazza() {
       cid || ''
     );
     const courseFolders = await client.fetchFoldersForCourse(cid || '');
+    const allComments = await client.fetchCommentsForCourse(cid as string);
     dispatch(setPosts(coursePosts));
     dispatch(setFolders(courseFolders));
+    dispatch(setAllComments(allComments));
     dispatch(setFolderFilter(undefined));
   };
   useEffect(() => {
