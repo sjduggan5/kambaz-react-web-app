@@ -27,7 +27,7 @@ export default function ActionsMenu({
 
   useEffect(() => {
     setPost(posts.find((p: any) => p._id === postId));
-  }, [postId])
+  }, [postId]);
 
   const handleDelete = async () => {
     if (type === 'COMMENT') {
