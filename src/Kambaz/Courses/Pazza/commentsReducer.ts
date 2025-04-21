@@ -29,14 +29,21 @@ const commentsSlice = createSlice({
     },
     deleteComment: (state, { payload: commentId }) => {
       state.comments = state.comments.filter((c: any) => c._id !== commentId);
+      state.allComments = state.allComments.filter((c: any) => c._id !== commentId);
     },
     updateComment: (state, { payload: comment }) => {
       state.comments = state.comments.map((c: any) =>
         c._id === comment._id ? comment : c
       ) as any;
+      state.allComments = state.allComments.map((c: any) =>
+        c._id === comment._id ? comment : c
+      ) as any;
     },
     editComment: (state, { payload: commentId }) => {
       state.comments = state.comments.map((c: any) =>
+        c._id === commentId ? { ...c, editing: true } : c
+      ) as any;
+      state.allComments = state.allComments.map((c: any) =>
         c._id === commentId ? { ...c, editing: true } : c
       ) as any;
     },
