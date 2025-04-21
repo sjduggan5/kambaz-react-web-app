@@ -4,6 +4,7 @@ import { deletePost, setIsEditing, updatePost } from '../postsReducer';
 import * as client from '../client';
 import { deleteComment } from '../commentsReducer';
 import { useNavigate, useParams } from 'react-router';
+import { useEffect, useState } from 'react';
 
 export default function ActionsMenu({
   location,
@@ -17,12 +18,16 @@ export default function ActionsMenu({
   const { cid, postId } = useParams();
   const { comments } = useSelector((state: any) => state.commentsReducer);
   const { posts } = useSelector((state: any) => state.postsReducer);
-  const post = posts.find((p) => p._id === postId);
+  const [post, setPost] = useState(posts.find((p: any) => p._id === postId));
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleEdit = () => {
     dispatch(setIsEditing(location));
   };
+
+  useEffect(() => {
+    setPost(posts.find((p: any) => p._id === postId));
+  }, [postId])
 
   const handleDelete = async () => {
     if (type === 'COMMENT') {
