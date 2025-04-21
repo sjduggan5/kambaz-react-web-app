@@ -29,7 +29,9 @@ const commentsSlice = createSlice({
     },
     deleteComment: (state, { payload: commentId }) => {
       state.comments = state.comments.filter((c: any) => c._id !== commentId);
-      state.allComments = state.allComments.filter((c: any) => c._id !== commentId);
+      state.allComments = state.allComments.filter(
+        (c: any) => c._id !== commentId
+      );
     },
     updateComment: (state, { payload: comment }) => {
       state.comments = state.comments.map((c: any) =>

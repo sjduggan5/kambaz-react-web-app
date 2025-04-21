@@ -39,7 +39,6 @@ export default function Glance() {
   const { currentUser } = useSelector((state: any) => state.accountReducer);
   const { posts } = useSelector((state: any) => state.postsReducer);
   const { allComments } = useSelector((state: any) => state.commentsReducer);
-  console.log(allComments);
   const unreadPosts = posts.length - currentUser.postsViewed.length;
   const unansweredCount = getUnansweredQuestions(posts);
   const instructorResponseCount = getInstructorResponses(allComments);
